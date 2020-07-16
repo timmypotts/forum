@@ -6,10 +6,10 @@ const TextPostInput = (props) => {
   return (
     <Form>
       <FormGroup>
-        <Label className="font-weight-bold" for="exampleText">
-          Create A Text Post!
-        </Label>
-        <Input type="textarea" rows="4" name="text" id="exampleText" />
+        <Label className="font-weight-bold">Post Title</Label>
+        <Input type="textarea" rows="1" name="title" id="postTitle" />
+        <Label className="font-weight-bold">Post Body</Label>
+        <Input type="textarea" rows="4" name="body" id="postBody" />
         <Button className="mt-1 float-right" color="success">
           Post
         </Button>

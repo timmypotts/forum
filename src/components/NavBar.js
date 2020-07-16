@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import UserHandling from "./UserHandling";
 
 import {
   Collapse,
@@ -8,6 +9,10 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -30,23 +35,22 @@ const NavBar = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret className="text-info">
-                Options
+              <DropdownToggle
+                nav
+                caret
+                className="btn-outline-info btn text-info font-weight-bold"
+              >
+                +
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem>Text Post</DropdownItem>
+                <DropdownItem>Link</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>Reset</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavLink className="text-info" href="/register/">
-            Sign Up
-          </NavLink>
-          <NavLink className="text-info" href="/login/">
-            Sign In
-          </NavLink>
+          <UserHandling />
         </Collapse>
       </Navbar>
     </div>
