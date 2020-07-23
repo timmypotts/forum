@@ -1,9 +1,0 @@
-.post-editor {
-  margin: 0 10%;
-}
-
-@media (max-width: 900px) {
-  .post-editor {
-    margin: 0;
-  }
-}
