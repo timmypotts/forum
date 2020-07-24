@@ -1,24 +1,32 @@
 var express = require("express");
 var router = express.Router();
-const bodyParser = require("body-parser");
-const path = require("path");
-const bcrypt = require("bcryptjs");
+var bodyParser = require("body-parser");
+var path = require("path");
+var bcrypt = require("bcryptjs");
+
+//Connect to Database
+var sequelize = require("sequelize");
+var db = require("../models");
+
+// Middleware
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-app.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
 
     if (!email || !password) {
       res.status(400).json(`Missing ${!email ? "email" : "password"}!`);
     }
 
     const hash = await bcrypt.hash(password, 10);
-    await db("users").insert({ email: email, hash: hash });
+    await db.User.create({ username: username, email: email, hash: hash });
 
     res.status(200).json("All good!");
   } catch (e) {
