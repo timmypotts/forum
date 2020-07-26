@@ -26,16 +26,14 @@ module.exports = function (app) {
       }
 
       const hash = await bcrypt.hash(password, 10);
-      await db.user
-        .create({
-          username: username,
-          email: email,
-          password: hash,
-        })
-        .then(function (forumDB) {
-          res.json(forumDB);
-          return;
-        });
+      await db.User.create({
+        username: username,
+        email: email,
+        password: hash,
+      }).then(function (forumDB) {
+        res.json(forumDB);
+        return;
+      });
 
       // return res.status(200).json("All good!");
     } catch (e) {
@@ -53,12 +51,16 @@ module.exports = function (app) {
 
   app.post("/login", async (req, res) => {
     try {
-      const [username, password] = req.body;
-      const user = await db.user.findOne.where({ username: username });
+      const username = req.body.username;
+      const password = req.body.password;
+      console.log(username, password);
+      const user = await db.User.findOne({
+        where: { username: username },
+      });
       if (user) {
-        const validPass = await bcrypt.compare(password, user.password);
+        const validPass = bcrypt.compareSync(password, user.password);
         if (validPass) {
-          res.status(200).json("Valid Email and Password!");
+          res.status(200).json("Valid Username and Password!");
         } else {
           res.json("Wrong password");
         }
