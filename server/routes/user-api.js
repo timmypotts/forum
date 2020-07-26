@@ -53,12 +53,12 @@ module.exports = function (app) {
 
   app.post("/login", async (req, res) => {
     try {
-      const [email, password] = req.body;
-      const user = await db.user.first("*").where({ email: email });
+      const [username, password] = req.body;
+      const user = await db.user.findOne.where({ username: username });
       if (user) {
-        const validPass = await bcrypt.compare(password, user.hash);
+        const validPass = await bcrypt.compare(password, user.password);
         if (validPass) {
-          res.status(200).json("Valid Email and Passowrd!");
+          res.status(200).json("Valid Email and Password!");
         } else {
           res.json("Wrong password");
         }
