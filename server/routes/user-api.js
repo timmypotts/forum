@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 var bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 //Connect to Database
 var db = require("../models");
@@ -60,7 +61,11 @@ module.exports = function (app) {
       if (user) {
         const validPass = bcrypt.compareSync(password, user.password);
         if (validPass) {
-          res.status(200).json("Valid Username and Password!");
+          jwt.sign({ user: user }, "secretKey", (err, token) => {
+            res.json({
+              token: token,
+            });
+          });
         } else {
           res.json("Wrong password");
         }
