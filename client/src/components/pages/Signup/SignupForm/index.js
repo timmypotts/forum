@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Col,
   Card,
@@ -9,7 +9,6 @@ import {
   FormGroup,
   Label,
   Input,
-  Container,
 } from "reactstrap";
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
@@ -25,7 +24,6 @@ const SignupForm = (props) => {
   const {
     handleSubmit,
     handleChange,
-    handleBlur,
     values,
     errors,
     isSubmitting,
