@@ -1,5 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../utils/UserContext";
 
 export default function Home() {
-  return <div>Home</div>;
+  const { user, setUser } = useContext(UserContext);
+  return (
+    <div>
+      <h2>Home</h2>
+      <div>{user}</div>
+      <button
+        onClick={() => {
+          setUser("hey");
+        }}
+      >
+        click me
+      </button>
+    </div>
+  );
 }

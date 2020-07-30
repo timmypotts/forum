@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
@@ -7,6 +7,7 @@ import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 
 import "./App.css";
+import { UserContext } from "./utils/UserContext";
 
 const Routes = () => {
   return (
@@ -19,11 +20,17 @@ const Routes = () => {
 };
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+
   return (
     <Router>
       <div className="App">
-        <NavBar />
-        <Routes />
+        <UserContext.Provider value={value}>
+          <NavBar />
+          <Routes />
+        </UserContext.Provider>
       </div>
     </Router>
   );

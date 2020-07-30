@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../../../../utils/UserContext";
 
 function useFormValidation(initialState, validate) {
   const [values, setValues] = React.useState(initialState);
   const [errors, setErrors] = React.useState({});
   const [isSubmitting, setSubmitting] = React.useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   React.useEffect(() => {
     if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        console.log(
-          "authenticated!",
-          values.username,
-          values.email,
-          values.password
-        );
+        axios
+          .post(`http://localhost:8080/register`, {
+            username: values.username,
+            email: values.email,
+            password: values.password,
+          })
+          .then((response) => {
+            console.log(response);
+            console.log(
+              "authenticated!",
+              values.username,
+              values.email,
+              values.password
+            );
+            setUser(values.username);
+          });
 
         setSubmitting(false);
       } else {
@@ -40,15 +52,6 @@ function useFormValidation(initialState, validate) {
     event.preventDefault();
     const validationErrors = validate(values);
     setErrors(validationErrors);
-    axios
-      .post(`http://localhost:8080/register`, {
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      })
-      .then((response) => {
-        console.log(response);
-      });
 
     setSubmitting(true);
   }
@@ -60,6 +63,8 @@ function useFormValidation(initialState, validate) {
     values,
     errors,
     isSubmitting,
+    user,
+    setUser,
   };
 }
 

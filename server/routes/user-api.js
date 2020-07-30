@@ -31,17 +31,26 @@ module.exports = function (app) {
         username: username,
         email: email,
         password: hash,
-      }).then(function (forumDB) {
-        res.json(forumDB);
+      }).then(function (userPrivate) {
+        const user = userPrivate.username;
+
+        jwt.sign({ user: user }, "secretkey", (err, token) => {
+          res.status(200).json({
+            token: token,
+          });
+        });
         return;
       });
 
       // return res.status(200).json("All good!");
     } catch (e) {
-      console.log(e); // Uncomment if needed for debug
-      // If a SQLITE_CONSTRAINT has been violated aka. row with that email already exists. You can read more: https://www.sqlite.org/c3ref/c_abort.html
-      if (e.errno === 19) {
-        res.status(400).json("A user with that email already exists!");
+      console.log("sandwich");
+      console.log(e);
+      console.log("sandwich");
+      if (e.parent.errno === 1062) {
+        res
+          .status(400)
+          .json("A user with that email or username already exists!");
         return;
       } else {
         res.status(400).json("Something broke!");
@@ -61,10 +70,13 @@ module.exports = function (app) {
       if (user) {
         const validPass = bcrypt.compareSync(password, user.password);
         if (validPass) {
-          jwt.sign({ user: user }, "secretKey", (err, token) => {
+          const tokenCred = username;
+
+          jwt.sign({ user: tokenCred }, "secretkey", (err, token) => {
             res.json({
               token: token,
             });
+            return;
           });
         } else {
           res.json("Wrong password");
