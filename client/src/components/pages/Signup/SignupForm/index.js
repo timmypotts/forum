@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Col,
   Card,
@@ -12,6 +12,8 @@ import {
 } from "reactstrap";
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
+
+import CheckUser from "../../../../context/CheckUser";
 
 const INITIAL_STATE = {
   email: "",
@@ -32,6 +34,7 @@ const SignupForm = (props) => {
 
   return (
     <Card>
+      <CheckUser />
       <CardHeader>Register</CardHeader>
       <CardBody>
         <Form onSubmit={handleSubmit}>
@@ -115,9 +118,7 @@ const SignupForm = (props) => {
             </Button>
             {submissionError ? (
               <div className="error-text">{submissionError}</div>
-            ) : (
-              <div></div>
-            )}
+            ) : null}
           </FormGroup>
         </Form>
       </CardBody>

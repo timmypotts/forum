@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import axios from "axios";
-import { UserContext } from "../../../../utils/UserContext";
-import { Redirect } from "react-router-dom";
+import { UserContext } from "../../../../context/UserContext";
+import AuthService from "../../../../services/auth-service";
 
 function useFormValidation(initialState, validate) {
   const [values, setValues] = React.useState(initialState);
@@ -14,12 +13,7 @@ function useFormValidation(initialState, validate) {
     if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        axios
-          .post(`http://localhost:8080/register`, {
-            username: values.username,
-            email: values.email,
-            password: values.password,
-          })
+        AuthService.register(values.username, values.email, values.password)
           .then((response) => {
             console.log(response);
             console.log(
@@ -29,7 +23,6 @@ function useFormValidation(initialState, validate) {
               values.password
             );
             setUser(values.username);
-
             setSubmitting(false);
           })
           .catch((err) => {
@@ -74,8 +67,6 @@ function useFormValidation(initialState, validate) {
     values,
     errors,
     isSubmitting,
-    user,
-    setUser,
     submissionError,
   };
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Col,
   Card,
@@ -10,23 +10,23 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import axios from "axios";
+import AuthService from "../../../../services/auth-service";
+import CheckUser from "../../../../context/CheckUser";
+import { UserContext } from "../../../../context/UserContext";
 
 const LoginForm = (props) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState(null);
+  const { user, setUser } = useContext(UserContext);
 
   function handleSubmit(event) {
     event.preventDefault();
-    axios
-      .post(`http://localhost:8080/login`, {
-        username: username,
-        password: password,
-      })
+    AuthService.login(username, password)
       .then((response) => {
         console.log(response.data);
         console.log("Logged in", { username, password });
+        setUser(username);
       })
       .catch((err) => {
         console.log("Error");
@@ -36,6 +36,7 @@ const LoginForm = (props) => {
 
   return (
     <Card>
+      <CheckUser />
       <CardHeader>Log In</CardHeader>
       <CardBody>
         <Form onSubmit={handleSubmit}>

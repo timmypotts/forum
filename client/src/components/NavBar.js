@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { NavLink as RRNavLink, Link } from "react-router-dom";
-import { UserContext } from "../utils/UserContext";
+import { UserContext } from "../context/UserContext";
+import AuthService from "../services/auth-service";
 
 import {
   Container,
@@ -13,11 +14,10 @@ import {
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useContext(UserContext);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  // const msg = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <div>
@@ -46,9 +46,10 @@ const NavBar = (props) => {
                 activeClassName="active"
                 tag={RRNavLink}
               >
-                Sign Up
+                Register
               </NavLink>
             )}
+
             {user ? (
               <NavLink
                 className="rightNav"
@@ -57,6 +58,7 @@ const NavBar = (props) => {
                 activeClassName="active"
                 tag={RRNavLink}
                 onClick={() => {
+                  AuthService.logout();
                   setUser(null);
                 }}
               >

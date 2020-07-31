@@ -1,13 +1,19 @@
-import React, { useState, useMemo } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
+import AuthService from "./services/auth-service";
 
 import "./App.css";
-import { UserContext } from "./utils/UserContext";
+import { UserContext } from "./context/UserContext";
 
 const Routes = () => {
   return (
@@ -22,17 +28,15 @@ const Routes = () => {
 function App() {
   const [user, setUser] = useState(null);
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
-
   return (
-    <Router>
-      <div className="App">
-        <UserContext.Provider value={value}>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Router>
+        <div className="App">
           <NavBar />
           <Routes />
-        </UserContext.Provider>
-      </div>
-    </Router>
+        </div>
+      </Router>
+    </UserContext.Provider>
   );
 }
 
