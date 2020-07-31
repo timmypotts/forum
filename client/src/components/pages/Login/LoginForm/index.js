@@ -15,10 +15,10 @@ import axios from "axios";
 const LoginForm = (props) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("Logged in", { username, password });
     axios
       .post(`http://localhost:8080/login`, {
         username: username,
@@ -26,6 +26,11 @@ const LoginForm = (props) => {
       })
       .then((response) => {
         console.log(response.data);
+        console.log("Logged in", { username, password });
+      })
+      .catch((err) => {
+        console.log("Error");
+        setError("Incorrect username or password");
       });
   }
 
@@ -66,8 +71,9 @@ const LoginForm = (props) => {
           </FormGroup>
           <FormGroup check row>
             <Button color="info" type="submit">
-              Register
+              Log In
             </Button>
+            {error ? <div className="error-text">{error}</div> : <div></div>}
           </FormGroup>
         </Form>
       </CardBody>

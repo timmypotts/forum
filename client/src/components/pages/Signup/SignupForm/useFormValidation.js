@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../../../../utils/UserContext";
+import { Redirect } from "react-router-dom";
 
 function useFormValidation(initialState, validate) {
   const [values, setValues] = React.useState(initialState);
   const [errors, setErrors] = React.useState({});
+  const [submissionError, setSubmissionError] = React.useState(null);
   const [isSubmitting, setSubmitting] = React.useState(false);
   const { user, setUser } = useContext(UserContext);
 
@@ -27,6 +29,15 @@ function useFormValidation(initialState, validate) {
               values.password
             );
             setUser(values.username);
+
+            setSubmitting(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setSubmissionError(
+              "A user with that username or email already exists."
+            );
+            setSubmitting(false);
           });
 
         setSubmitting(false);
@@ -65,6 +76,7 @@ function useFormValidation(initialState, validate) {
     isSubmitting,
     user,
     setUser,
+    submissionError,
   };
 }
 

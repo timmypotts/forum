@@ -27,6 +27,7 @@ const SignupForm = (props) => {
     values,
     errors,
     isSubmitting,
+    submissionError,
   } = useFormValidation(INITIAL_STATE, validateAuth);
 
   return (
@@ -112,6 +113,11 @@ const SignupForm = (props) => {
             <Button color="info" type="submit" disabled={isSubmitting}>
               Register
             </Button>
+            {submissionError ? (
+              <div className="error-text">{submissionError}</div>
+            ) : (
+              <div></div>
+            )}
           </FormGroup>
         </Form>
       </CardBody>

@@ -79,7 +79,7 @@ module.exports = function (app) {
             return;
           });
         } else {
-          res.json("Wrong password");
+          res.status(400).json("Wrong password");
         }
       } else {
         res.status(404).json("User not found");
