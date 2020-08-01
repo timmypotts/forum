@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import useFormValidation from "./useFormValidation";
 import validateAuth from "./validateAuth";
+import { AuthService } from "./../../../../services/auth-service";
 
 import CheckUser from "../../../../context/CheckUser";
 
@@ -28,9 +29,13 @@ const SignupForm = (props) => {
     handleChange,
     values,
     errors,
+    login,
+    logout,
+    register,
+    getCurrentUser,
     isSubmitting,
     submissionError,
-  } = useFormValidation(INITIAL_STATE, validateAuth);
+  } = useFormValidation(INITIAL_STATE, validateAuth, AuthService);
 
   return (
     <Card>

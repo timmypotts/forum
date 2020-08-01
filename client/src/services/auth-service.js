@@ -1,9 +1,12 @@
+import React, { createContext } from "react";
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
-class AuthService {
-  login(username, password) {
+const UserContext = createContext(null);
+
+const AuthService = () => {
+  const login = (username, password) => {
     return axios
       .post(API_URL + "login", {
         username,
@@ -16,13 +19,13 @@ class AuthService {
 
         return response.data;
       });
-  }
+  };
 
-  logout() {
+  const logout = () => {
     localStorage.removeItem("user");
-  }
+  };
 
-  register(username, email, password) {
+  const register = (username, email, password) => {
     return axios
       .post(API_URL + "register", {
         username,
@@ -36,12 +39,15 @@ class AuthService {
 
         return response.data;
       });
-  }
+  };
 
-  getCurrentUser() {
-    console.log(JSON.parse(localStorage.getItem("user")));
+  const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
-  }
-}
+  };
 
-export default new AuthService();
+  return { login, logout, register, getCurrentUser };
+};
+
+
+
+export { AuthService, UserContext };

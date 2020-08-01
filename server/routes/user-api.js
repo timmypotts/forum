@@ -17,9 +17,10 @@ module.exports = function (app) {
   //   res.send("respond with a resource");
   // });
 
-  app.post("/register", async (req, res) => {
+  app.post("/api/auth/register", async (req, res) => {
     try {
-      const { email, password, username } = req.body;
+      const { email, username, password } = req.body;
+      console.log(email);
 
       if (!email || !password) {
         res.status(400).json(`Missing ${!email ? "email" : "password"}!`);
@@ -36,6 +37,7 @@ module.exports = function (app) {
 
         jwt.sign({ user: user }, "secretkey", (err, token) => {
           res.status(200).json({
+            username: user,
             token: token,
           });
         });
@@ -44,9 +46,8 @@ module.exports = function (app) {
 
       // return res.status(200).json("All good!");
     } catch (e) {
-      console.log("sandwich");
       console.log(e);
-      console.log("sandwich");
+
       if (e.parent.errno === 1062) {
         res
           .status(400)
@@ -59,7 +60,7 @@ module.exports = function (app) {
     }
   });
 
-  app.post("/login", async (req, res) => {
+  app.post("/api/auth/login", async (req, res) => {
     try {
       const username = req.body.username;
       const password = req.body.password;
@@ -74,6 +75,7 @@ module.exports = function (app) {
 
           jwt.sign({ user: tokenCred }, "secretkey", (err, token) => {
             res.json({
+              username: tokenCred,
               token: token,
             });
             return;

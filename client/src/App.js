@@ -10,10 +10,9 @@ import NavBar from "./components/NavBar";
 import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
-import AuthService from "./services/auth-service";
+import AuthService, { UserContext } from "./services/auth-service";
 
 import "./App.css";
-import { UserContext } from "./context/UserContext";
 
 const Routes = () => {
   return (

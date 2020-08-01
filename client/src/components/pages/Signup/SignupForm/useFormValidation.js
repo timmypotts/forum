@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { UserContext } from "../../../../context/UserContext";
-import AuthService from "../../../../services/auth-service";
+import { UserContext } from "../../../../services/auth-service";
 
-function useFormValidation(initialState, validate) {
+function useFormValidation(initialState, validate, AuthService) {
   const [values, setValues] = React.useState(initialState);
   const [errors, setErrors] = React.useState({});
   const [submissionError, setSubmissionError] = React.useState(null);

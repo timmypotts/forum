@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
 import { NavLink as RRNavLink, Link } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
-import AuthService from "../services/auth-service";
-
+import { AuthService, UserContext } from "../services/auth-service";
 import {
   Container,
   Collapse,
