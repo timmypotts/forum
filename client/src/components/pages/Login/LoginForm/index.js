@@ -10,15 +10,15 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { AuthService, UserContext } from "../../../../services/auth-service";
+import AuthService from "../../../../services/auth-service";
 import CheckUser from "../../../../context/CheckUser";
+import { UserContext } from "../../../../context/UserContext";
 
 const LoginForm = (props) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState(null);
   const { user, setUser } = useContext(UserContext);
-  const { login, logout, register, getCurrentUser } = AuthService();
 
   function handleSubmit(event) {
     event.preventDefault();

@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
-import AuthService, { UserContext } from "./services/auth-service";
+import { UserContext } from "./context/UserContext";
 
 import "./App.css";
 

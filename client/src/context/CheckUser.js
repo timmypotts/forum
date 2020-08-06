@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "../services/auth-service";
+import { UserContext } from "./UserContext";
 import { Redirect } from "react-router-dom";
 
 export default function CheckUser() {
