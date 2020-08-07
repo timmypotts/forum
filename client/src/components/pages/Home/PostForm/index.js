@@ -5,7 +5,7 @@ const PostForm = (props) => {
   return (
     <Form>
       <FormGroup>
-        <Label for="title">Email</Label>
+        <Label for="title">Title</Label>
         <Input
           type="text"
           name="title"
@@ -14,7 +14,7 @@ const PostForm = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="body">Text Area</Label>
+        <Label for="body">Body</Label>
         <Input
           type="textarea"
           name="body"

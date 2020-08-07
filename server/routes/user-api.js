@@ -1,5 +1,4 @@
 var express = require("express");
-// var router = express.Router();
 var bodyParser = require("body-parser");
 var path = require("path");
 var bcrypt = require("bcryptjs");
@@ -34,8 +33,9 @@ module.exports = function (app) {
         password: hash,
       }).then(function (userPrivate) {
         const user = userPrivate.username;
+        const id = userPivate.id;
 
-        jwt.sign({ user: user }, "secretkey", (err, token) => {
+        jwt.sign({ user: user, id: id }, "secretkey", (err, token) => {
           res.status(200).json({
             username: user,
             token: token,
@@ -72,8 +72,9 @@ module.exports = function (app) {
         const validPass = bcrypt.compareSync(password, user.password);
         if (validPass) {
           const tokenCred = username;
+          const id = user.id;
 
-          jwt.sign({ user: tokenCred }, "secretkey", (err, token) => {
+          jwt.sign({ user: tokenCred, id: id }, "secretkey", (err, token) => {
             res.json({
               username: tokenCred,
               token: token,

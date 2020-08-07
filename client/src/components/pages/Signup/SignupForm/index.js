@@ -51,7 +51,7 @@ const SignupForm = (props) => {
                 type="email"
                 name="email"
                 id="Email"
-                placeholder="Link your account to an email, we wont send you anything!"
+                placeholder="Email"
               />
               {errors.email && <p className="error-text">{errors.email}</p>}
             </Col>
