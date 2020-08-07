@@ -6,9 +6,9 @@ const PostCard = (props) => {
     <Row>
       <Col>
         <Card>
-          <CardHeader>{props.postTitle}</CardHeader>
+          <CardHeader>{props.title}</CardHeader>
           <CardBody>
-            <p>{props.postBody}</p>
+            <p>{props.body}</p>
           </CardBody>
         </Card>
       </Col>
