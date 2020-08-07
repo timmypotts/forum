@@ -1,7 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var path = require("path");
-var bcrypt = require("bcryptjs");
+("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 //Connect to Database
@@ -12,16 +11,19 @@ module.exports = function (app) {
   app.use(bodyParser.json());
 
   app.post("/api/forumposts", verifyToken, async (req, res) => {
-    jwt.verify(req.token, "secret key", (error, authData) => {
+    jwt.verify(req.token, "secretkey", (error, authData) => {
       if (error) {
         console.log(error);
         res.sendStatus(403);
       } else {
-        const { postTitle, postBody } = req.body;
+        console.log("REQ BODY: ");
+        console.log(req.body);
+        const postTitle = req.body.title;
+        const postBody = req.body.body;
         db.Post.create({
           postTitle: postTitle,
           postBody: postBody,
-          authorId: authData.user.id,
+          UserId: authData.id,
         });
         res.json({ message: "Post Created", authData });
       }

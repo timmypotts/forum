@@ -74,7 +74,7 @@ const LoginForm = (props) => {
             <Button color="info" type="submit">
               Log In
             </Button>
-            {error ? <div className="error-text">{error}</div> : <div></div>}
+            {error ? <div className="error-text">{error}</div> : null}
           </FormGroup>
         </Form>
       </CardBody>
