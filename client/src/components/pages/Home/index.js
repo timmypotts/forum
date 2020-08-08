@@ -41,8 +41,7 @@ export default function Home() {
           ) : (
             <h4>
               Sign in or create an account to make a post. Don't use a password
-              you normally use, I cant guarentee how secure this is. Try it out
-              though!
+              you normally use, I can't guarentee how secure this is.
             </h4>
           )}
         </Col>

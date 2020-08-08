@@ -33,7 +33,7 @@ module.exports = function (app) {
         password: hash,
       }).then(function (userPrivate) {
         const user = userPrivate.username;
-        const id = userPivate.id;
+        const id = userPrivate.id;
 
         jwt.sign({ user: user, id: id }, "secretkey", (err, token) => {
           res.status(200).json({
