@@ -35,7 +35,17 @@ export default function Home() {
   return (
     <Container>
       <Row>
-        <Col>{user ? <PostForm /> : null}</Col>
+        <Col>
+          {user ? (
+            <PostForm />
+          ) : (
+            <h4>
+              Sign in or create an account to make a post. Don't use a password
+              you normally use, I cant guarentee how secure this is. Try it out
+              though!
+            </h4>
+          )}
+        </Col>
       </Row>
 
       {posts.length ? (
