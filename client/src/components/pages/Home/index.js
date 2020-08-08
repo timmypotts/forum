@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import PostCard from "./PostCard";
 import PostForm from "./PostForm";
+import moment from "moment";
 import CheckUser from "../../../context/CheckUser";
 import { UserContext } from "../../../context/UserContext";
 import AuthService from "../../../services/auth-service";
@@ -44,7 +45,8 @@ export default function Home() {
               key={post.id}
               title={post.postTitle}
               body={post.postBody}
-              date={post.createdAt}
+              date={moment(post.createdAt).calendar()}
+              // {moment(post.createdAt, "YYYY-MM-DD").format("dddd")}
             />
           ))}
         </div>

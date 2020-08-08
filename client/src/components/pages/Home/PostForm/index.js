@@ -8,7 +8,7 @@ const PostForm = (props) => {
 
   function handleSubmit(event) {
     console.log("submitting");
-    event.preventDefault();
+    // event.preventDefault();
     PostService.submitPost(title, body).catch((err) => {
       console.log(err);
     });
