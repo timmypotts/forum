@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
-import PostCard from "./PostCard";
+import PostCard from "../../PostCard";
 import PostForm from "./PostForm";
 import moment from "moment";
-import CheckUser from "../../../context/CheckUser";
 import { UserContext } from "../../../context/UserContext";
 import AuthService from "../../../services/auth-service";
 import PostService from "../../../services/post-service";
@@ -28,7 +27,7 @@ export default function Home() {
         return null;
       }
       setPosts(res);
-      console.log(posts);
+      console.log(res);
     });
   }, []);
 
@@ -41,7 +40,8 @@ export default function Home() {
           ) : (
             <h4>
               Sign in or create an account to make a post. Don't use a password
-              you normally use, I can't guarentee how secure this is.
+              you normally use, I cant guarentee how secure this is. Try it out
+              though!
             </h4>
           )}
         </Col>
@@ -51,11 +51,10 @@ export default function Home() {
         <div>
           {posts.map((post) => (
             <PostCard
-              key={post.id}
+              postID={post.id}
               title={post.postTitle}
               body={post.postBody}
               date={moment(post.createdAt).calendar()}
-              // {moment(post.createdAt, "YYYY-MM-DD").format("dddd")}
             />
           ))}
         </div>

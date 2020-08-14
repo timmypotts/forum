@@ -5,6 +5,8 @@ import NavBar from "./components/NavBar";
 import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
+import UserDashboard from "./components/pages/UserDashboard";
+import PostPage from "./components/pages/PostPage";
 import { UserContext } from "./context/UserContext";
 
 import "./App.css";
@@ -15,6 +17,8 @@ const Routes = () => {
       <Route path="/" exact={true} component={Home} />
       <Route path="/signup" exact={true} component={Signup} />
       <Route path="/login" exact={true} component={Login} />
+      <Route path="/dashboard" exact={true} component={UserDashboard} />
+      <Route path="/postpage/:postID/:postTitle" component={PostPage} />
     </Switch>
   );
 };

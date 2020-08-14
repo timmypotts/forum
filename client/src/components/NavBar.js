@@ -30,7 +30,7 @@ const NavBar = (props) => {
             <NavLink
               className="rightNav"
               style={{ color: "grey" }}
-              to="/userdashboard"
+              to="/dashboard"
               activeClassName="active"
               tag={RRNavLink}
             >
