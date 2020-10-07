@@ -26,6 +26,7 @@ const NavBar = (props) => {
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
+          {/* Checks if a user is found in local storage, and will display username in place of "Register" link if so */}
           {user ? (
             <NavLink
               className="rightNav"

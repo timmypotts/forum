@@ -5,7 +5,10 @@ const API_URL = "http://localhost:8080/api/";
 
 class PostService {
   submitPost(title, body) {
+    console.log("Posting");
     console.log(authHeader());
+    console.log(title);
+    console.log(body);
     return axios
       .post(
         API_URL + "forumposts",
@@ -19,6 +22,13 @@ class PostService {
         console.log(response);
         return response.data;
       });
+  }
+
+  async getPost(postID) {
+    var pk = postID.postID;
+    return axios.get(API_URL + "forumposts/" + pk).then((response) => {
+      return response.data.postBody;
+    })
   }
 
   async loadPosts() {

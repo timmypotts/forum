@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Jumbotron, Card } from "reactstrap";
 import AuthService from "../../../services/auth-service";
+import PostService from "../../../services/post-service";
 import { UserContext } from "../../../context/UserContext";
 
 export default function PostPage({ match, location }) {
@@ -8,6 +9,9 @@ export default function PostPage({ match, location }) {
   const {
     params: { postID, postTitle },
   } = match;
+
+  const [body, setBody] = useState("");
+
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -19,13 +23,28 @@ export default function PostPage({ match, location }) {
     }
   }, []);
 
+  useEffect(() => {
+    PostService.getPost({postID}).then((res) => {
+      console.log(res);
+      if (!res) {
+        setBody("Error loading post!");
+      }
+      setBody(res);
+      console.log(body.postBody);
+    });
+  }, []);
+
+
   return (
     <Container>
       <Jumbotron>
-        <h1 className="float-left">{postTitle}</h1>
-        <br />
-        <p className="float-left"></p>
+
+        <h1 className="display-3">{postTitle}</h1>
+        <hr className="my-2" />
+        <p className="lead">{body}</p>
+
       </Jumbotron>
-    </Container>
+      </Container>
+
   );
 }

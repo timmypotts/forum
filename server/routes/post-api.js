@@ -10,6 +10,8 @@ module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
+
+// Requiring a json web token makes it so only a logged in user may create a post
   app.post("/api/forumposts", verifyToken, async (req, res) => {
     jwt.verify(req.token, "secretkey", (error, authData) => {
       if (error) {
@@ -30,6 +32,16 @@ module.exports = function (app) {
     });
   });
 
+  //GET SPECIFIC POST
+  app.get("/api/forumposts/:id", async(req, res) => {
+    var primaryKey = req.params.id;
+    db.Post.findByPk(primaryKey).then((post) => {
+      res.json(post);
+    });
+  })
+
+
+  //GET ALL POSTS FROM POSTS TABLE
   app.get("/api/forumposts", async (req, res) => {
     db.Post.findAll().then((postDump) => {
       res.json(postDump);
