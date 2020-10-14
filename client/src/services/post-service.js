@@ -24,11 +24,17 @@ class PostService {
       });
   }
 
+  async getUser(userID) {
+    return axios.get(API_URL + "authorID=" + userID).then((response) => {
+      return response.data;
+    });
+  }
+
   async getPost(postID) {
     var pk = postID.postID;
     return axios.get(API_URL + "forumposts/" + pk).then((response) => {
-      return response.data.postBody;
-    })
+      return response.data;
+    });
   }
 
   async loadPosts() {

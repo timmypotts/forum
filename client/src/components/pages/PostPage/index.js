@@ -12,7 +12,6 @@ export default function PostPage({ match, location }) {
 
   const [body, setBody] = useState("");
 
-
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
@@ -24,27 +23,25 @@ export default function PostPage({ match, location }) {
   }, []);
 
   useEffect(() => {
-    PostService.getPost({postID}).then((res) => {
+    PostService.getPost({ postID }).then((res) => {
       console.log(res);
       if (!res) {
         setBody("Error loading post!");
       }
-      setBody(res);
+      setBody(res.postBody);
       console.log(body.postBody);
     });
   }, []);
 
-
   return (
     <Container>
       <Jumbotron>
+        <h3 className="display-5 text-left">{postTitle}</h3>
 
-        <h1 className="display-3">{postTitle}</h1>
         <hr className="my-2" />
-        <p className="lead">{body}</p>
 
+        <p className="lead text-left">{body}</p>
       </Jumbotron>
-      </Container>
-
+    </Container>
   );
 }
