@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 ("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
 //Connect to Database
 var db = require("../models");
 module.exports = function (app) {
@@ -41,10 +42,37 @@ module.exports = function (app) {
 
   //GET ALL POSTS FROM POSTS TABLE
   app.get("/api/forumposts", async (req, res) => {
-    db.Post.findAll().then((postDump) => {
+    db.Post.findAll({
+      include: [{
+        model: db.User
+      }]
+    }).then((postDump) => {
       res.json(postDump);
     });
   });
+
+
+
+// GET ALL POSTS FROM SPECIFIC USER
+app.get("/api/userposts", verifyToken, async(req, res) => {
+  jwt.verify(req.token, "secretkey", (error, authData) => {
+    if (error) {
+      console.log(error);
+      res.sendStatus(403);
+    } else {
+      console.log("REQ BODY: ");
+      console.log(req.body);
+      db.Post.findAll({
+        where: {
+        UserId: authData.id
+        }
+      }).then((userPosts) => {
+      res.json( userPosts );
+    })
+    }
+  });
+});
+
 };
 
 // app.get("api/authorID=:id", async (req, res) => {

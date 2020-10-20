@@ -55,6 +55,7 @@ export default function Home() {
               title={post.postTitle}
               body={post.postBody}
               date={moment(post.createdAt).calendar()}
+              author={post.User.username}
             />
           ))}
         </div>

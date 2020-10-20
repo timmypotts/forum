@@ -4,11 +4,9 @@ import authHeader from "./auth-header";
 const API_URL = "http://localhost:8080/api/";
 
 class PostService {
+
+
   submitPost(title, body) {
-    console.log("Posting");
-    console.log(authHeader());
-    console.log(title);
-    console.log(body);
     return axios
       .post(
         API_URL + "forumposts",
@@ -24,6 +22,16 @@ class PostService {
       });
   }
 
+  async getPostsFromUser() {
+    return axios.get(
+      API_URL + "userposts",
+      {headers: authHeader()}
+    ).then((response) => {
+      return response;
+    })
+  }
+
+
   async getUser(userID) {
     return axios.get(API_URL + "authorID=" + userID).then((response) => {
       return response.data;
@@ -36,6 +44,8 @@ class PostService {
       return response.data;
     });
   }
+
+
 
   async loadPosts() {
     return axios.get(API_URL + "forumposts").then((response) => {

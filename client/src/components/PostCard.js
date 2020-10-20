@@ -27,6 +27,9 @@ const PostCard = (props) => {
               <Row>
                 <p>{props.date}</p>
               </Row>
+              <Row>
+                <p className="float-right"> By: {props.author}</p>
+              </Row>
             </CardHeader>
             <CardBody className="float-left">
               <p className="float-left">{props.body}</p>
