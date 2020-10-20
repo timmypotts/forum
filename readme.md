@@ -16,7 +16,19 @@ The context directory contains files that initializes the UseContext hook that i
 
 To run the backend locally, cd into the server directory and run > node server.js
 
-This may not work initially, since at the moment I am using a JSON (server/config/config.json) file to set up my connections to my SQL database. I know I can just .gitignore that, or use a .js file that emulates as JSON file and use the dotenv package. For now I just delete my password from config.json every time I commit.
+In order for the backend to work locally, you need to create a directory server/**client**. Within the client folder, create a client.json folder with the structure:
+```
+{
+  "development": {
+    "username": "root",
+    "password": "42bUgfish42!",
+    "database": "forumDB",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "dialect": "mysql"
+  }
+}
+```
 
 I created this by starting with a simple server.js file using Express. The backend runs primarially as an API for my front end to communicate with my back end. I am doing this by using sequelize. I have created a model for each of the tables that my SQL database requires. I am creating API routes for specific queries/calls that will be required for my forum to function.
 
