@@ -20,11 +20,11 @@ In order for the backend to work locally, you need to create a directory server/
 ```
 {
   "development": {
-    "username": "root",
-    "password": "42bUgfish42!",
-    "database": "forumDB",
-    "host": "127.0.0.1",
-    "port": 3306,
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "port": "",
     "dialect": "mysql"
   }
 }
