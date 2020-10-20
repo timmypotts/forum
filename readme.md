@@ -30,6 +30,6 @@ In order for the backend to work locally, you need to create a directory server/
 }
 ```
 
-I created this by starting with a simple server.js file using Express. The backend runs primarially as an API for my front end to communicate with my back end. I am doing this by using sequelize. I have created a model for each of the tables that my SQL database requires. I am creating API routes for specific queries/calls that will be required for my forum to function.
+I created this by starting with a simple server.js file using Express. The backend runs primarially as an API for my front end to communicate with a SQL database. I am doing this by using sequelize. I have created a model for each of the tables that my SQL database requires. I am creating API routes for specific queries/calls that will be required for my forum to function.
 
 **NOTE** I am also aware that most readmes do not use the first-person, and I intend to change that as my forum becomes more operational. However, right now it is purely a personal project and I figured I'd use the readme as a chance to explain my thought process while creating this.
