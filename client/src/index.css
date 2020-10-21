@@ -28,3 +28,10 @@ body {
 .list-group-item {
   cursor: pointer;
 }
+
+.delete-button {
+  cursor: pointer;
+}
+delete-button:hover{
+  font-weight: bold;
+}

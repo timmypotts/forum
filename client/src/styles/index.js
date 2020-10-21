@@ -19,3 +19,4 @@ export const PostWrapper = styled.section`
     padding: 1.25rem 0.75rem;
   }
 `;
+

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
-import PostCard from "../../PostCard";
+import DashPostCard from "../../DashPostCard";
 import moment from "moment";
 import { UserContext } from "../../../context/UserContext";
 import AuthService from "../../../services/auth-service";
@@ -38,23 +38,23 @@ export default function UserDashboard({match, location}) {
       <Row>
         <h1 className="float-left">Hello {user}</h1>
       </Row>
-      <Row>
+      <Row><h4>Post History:</h4></Row>
+
       {posts.length ? (
         <div>
           {posts.map((post) => (
-            <PostCard
+            <DashPostCard
               postID={post.id}
               title={post.postTitle}
               body={post.postBody}
               date={moment(post.createdAt).calendar()}
-              author={user}
             />
           ))}
         </div>
       ) : (
         <h1>Loading</h1>
       )}
-      </Row>
+
     </Container>
   );
 }

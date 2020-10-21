@@ -31,6 +31,11 @@ class PostService {
     })
   }
 
+  DeletePost(postID) {
+    return axios.delete(API_URL + "deletePost/id=" + postID, {headers: authHeader()}).then((response) => {
+      return response;
+    })
+  }
 
   async getUser(userID) {
     return axios.get(API_URL + "authorID=" + userID).then((response) => {

@@ -73,6 +73,25 @@ app.get("/api/userposts", verifyToken, async(req, res) => {
   });
 });
 
+
+app.delete("/api/deletePost/id=:postID", verifyToken, async(req, res) => {
+  jwt.verify(req.token, "secretkey", (error, authData) => {
+    if (error) {
+      console.log(error);
+      res.sendStatus(403);
+    } else {
+      console.log("REQ BODY: ");
+      console.log(req.body);
+      db.Post.destroy({
+        where: {
+        id: req.params.postID
+        }
+      });
+      res.json({message: "Post Deleted"});
+    }
+  });
+});
+
 };
 
 // app.get("api/authorID=:id", async (req, res) => {
