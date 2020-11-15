@@ -13,6 +13,9 @@ module.exports = function (sequelize, DataTypes) {
     createdAt: DataTypes.DATE,
   });
 
+
+
+  //The comments have to be associated to both the users that wrote them, and the post that they are commenting on
   Comment.associate = function (models) {
     Comment.belongsTo(models.User, {
       foreignKey: {

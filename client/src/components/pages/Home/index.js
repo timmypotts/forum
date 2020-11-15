@@ -33,10 +33,10 @@ export default function Home() {
 
   return (
     <Container>
-      <Row>
+      <Row mb={3}>
         <Col>
           {user ? (
-            <PostForm />
+            <PostForm mb={5}/>
           ) : (
             <h4>
               Sign in or create an account to make a post. Don't use a password
@@ -45,7 +45,7 @@ export default function Home() {
             </h4>
           )}
         </Col>
-      </Row>
+      </Row >
 
       {posts.length ? (
         <div>
@@ -56,6 +56,7 @@ export default function Home() {
               body={post.postBody}
               date={moment(post.createdAt).calendar()}
               author={post.User.username}
+              rating={post.rating}
             />
           ))}
         </div>

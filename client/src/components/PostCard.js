@@ -10,9 +10,20 @@ import {
   CardBody,
   Row,
   Button,
+  Border
 } from "reactstrap";
 
+
+
+
 const PostCard = (props) => {
+
+  function likePost() {
+    console.log("LIKED!");
+  
+  }
+
+
   return (
     <PostWrapper>
       <Row className="mt-3 mb-3">
@@ -32,13 +43,15 @@ const PostCard = (props) => {
               </Row>
             </CardHeader>
             <CardBody className="float-left">
-              <p className="float-left">{props.body}</p>
+              <p className="text-left">{props.body}</p>
             </CardBody>
             <CardFooter>
+              <h3 className="float-left text-secondary border pl-3 pr-3 pt-1">{props.rating}</h3>
               <Button className="float-right" type="" color="success">
                 Comments
               </Button>
-              <Button className="float-left">Like</Button>
+              <Button className="float-right mr-2" onClick={likePost}>Like</Button>
+
             </CardFooter>
           </Card>
         </Col>

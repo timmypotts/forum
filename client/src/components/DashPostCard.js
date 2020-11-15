@@ -16,6 +16,7 @@ import {
 const PostCard = (props) => {
 
 function deletePost(event) {
+  event.preventDefault();
     console.log("DELETING POST");
     PostService.DeletePost(props.postID);
 }

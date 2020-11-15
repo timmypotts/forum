@@ -3,6 +3,7 @@ import { Container, Row, Col, Jumbotron, Card } from "reactstrap";
 import AuthService from "../../../services/auth-service";
 import PostService from "../../../services/post-service";
 import { UserContext } from "../../../context/UserContext";
+import CommentForm from "./CommentForm";
 
 export default function PostPage({ match, location }) {
   const { user, setUser } = useContext(UserContext);
@@ -42,6 +43,8 @@ export default function PostPage({ match, location }) {
 
         <p className="lead text-left">{body}</p>
       </Jumbotron>
+      <CommentForm />
     </Container>
+
   );
 }

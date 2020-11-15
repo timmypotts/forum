@@ -73,7 +73,7 @@ app.get("/api/userposts", verifyToken, async(req, res) => {
   });
 });
 
-
+//Delete a post from the user page
 app.delete("/api/deletePost/id=:postID", verifyToken, async(req, res) => {
   jwt.verify(req.token, "secretkey", (error, authData) => {
     if (error) {
@@ -92,14 +92,11 @@ app.delete("/api/deletePost/id=:postID", verifyToken, async(req, res) => {
   });
 });
 
+// app.put("/api/likePost")
+
 };
 
-// app.get("api/authorID=:id", async (req, res) => {
-//   var pk = req.params.id;
-//   db.Users.findByPk(pk).then((author) => {
-//     res.json(author);
-//   });
-// });
+
 
 // TOKEN FORMAT
 // Authorization: Bearer <access token>

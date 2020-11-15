@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Col,
   Card,
@@ -15,9 +15,9 @@ import CheckUser from "../../../../context/CheckUser";
 import { UserContext } from "../../../../context/UserContext";
 
 const LoginForm = (props) => {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const { user, setUser } = useContext(UserContext);
 
   function handleSubmit(event) {

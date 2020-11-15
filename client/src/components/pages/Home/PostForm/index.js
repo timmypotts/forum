@@ -3,10 +3,15 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import PostService from "../../../../services/post-service";
 
 const PostForm = (props) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(null);
   const [body, setBody] = useState(``);
+  const [error, setError] = useState(null);
 
   function handleSubmit(event) {
+    if (title === null){
+      setError("Please create a title for this post");
+      return;
+    }
     console.log("submitting");
     // event.preventDefault();
     PostService.submitPost(title, body).catch((err) => {
@@ -40,10 +45,11 @@ const PostForm = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Button color="info" type="submit">
+        <Button className="float-left" color="info" type="submit">
           Submit
         </Button>
       </FormGroup>
+      {error ? (null) : (<h3>{error}</h3>)}
     </Form>
   );
 };
