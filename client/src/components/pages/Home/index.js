@@ -14,7 +14,6 @@ export default function Home() {
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-      console.log(user);
       setUser(user.username);
     } else {
       console.log("no user");
@@ -51,6 +50,7 @@ export default function Home() {
         <div>
           {posts.map((post) => (
             <PostCard
+              key={post.id}
               postID={post.id}
               title={post.postTitle}
               body={post.postBody}

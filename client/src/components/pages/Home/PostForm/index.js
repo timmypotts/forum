@@ -3,12 +3,12 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import PostService from "../../../../services/post-service";
 
 const PostForm = (props) => {
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState(``);
   const [body, setBody] = useState(``);
   const [error, setError] = useState(null);
 
   function handleSubmit(event) {
-    if (title === null){
+    if (title === ``){
       setError("Please create a title for this post");
       return;
     }

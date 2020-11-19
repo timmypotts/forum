@@ -51,6 +51,17 @@ class PostService {
   }
 
 
+  async likePost(postID) {
+    return axios
+    .put(API_URL + "likepost/id=" + postID,
+      { headers: authHeader() }
+    )
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    });
+  }
+
 
   async loadPosts() {
     return axios.get(API_URL + "forumposts").then((response) => {
@@ -58,5 +69,6 @@ class PostService {
     });
   }
 }
+
 
 export default new PostService();

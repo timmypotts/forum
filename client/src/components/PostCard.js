@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { PostWrapper } from "../styles/index";
+import PostService from "../services/post-service";
 
 import {
   Col,
@@ -20,6 +21,7 @@ const PostCard = (props) => {
 
   function likePost() {
     console.log("LIKED!");
+    PostService.likePost(props.postID);
   
   }
 

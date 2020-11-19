@@ -15,9 +15,14 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
     },
     rating: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
+    },
+    likedBy: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: false,
+      defaultValue: [],
     },
     createdAt: DataTypes.DATE,
   });

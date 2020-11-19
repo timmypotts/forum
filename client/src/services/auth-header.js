@@ -3,7 +3,6 @@ export default function authHeader() {
 
   if (user && user.token) {
     // for Node.js Express back-end
-    console.log(user.token);
     return { authorization: "Bearer " + user.token };
   } else {
     return {};

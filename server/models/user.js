@@ -20,6 +20,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
+    likedPosts: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: false,
+      defaultValue: []
+    },
     createdAt: DataTypes.DATE,
   });
 

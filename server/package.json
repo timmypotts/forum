@@ -13,9 +13,10 @@
     "mysql": "^2.18.1",
     "mysql2": "^1.7.0",
     "nodemon": "^2.0.4",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^4.44.4"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

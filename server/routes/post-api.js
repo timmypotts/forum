@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 //Connect to Database
 var db = require("../models");
+const user = require("../models/user");
 module.exports = function (app) {
   // Middleware
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -92,7 +93,37 @@ app.delete("/api/deletePost/id=:postID", verifyToken, async(req, res) => {
   });
 });
 
-// app.put("/api/likePost")
+// API that allows a user to like a post. This adds the user to an array of users that have liked the posts, updates the number of likes, and adds the post to an array of posts that the user has liked.
+app.put("/api/likepost/id=:postID", verifyToken, async(req, res) =>{
+  jwt.verify(req.token, "secretkey", (error, authData) => {
+    // CHECK IF USER HAS ALREADY LIKED POST
+    // db.Post.findAll(
+    //   {likedBy: { [sequelize.Op.contains]: [authData.id]}},
+    //   {where: {id: req.params.postID}}).then((result) => {
+    //     console.log(result);
+    //     var check = result;
+    //     return check;
+    //   })
+    // console.log(check)
+    if (error) {
+      console.log(error);
+      res.sendStatus(403);
+    }
+    else {
+      console.log("LIKE POST:" + req.params.postID);
+      db.Post.update(
+        {likedBy: db.sequelize.fn('array_append', db.sequelize.col('likedBy'), authData.id),
+         rating: db.sequelize.literal("rating + 1")},
+        {where: {id: req.params.postID}}
+      )
+      db.User.update(
+        {likedPosts: db.sequelize.fn('array_append', db.sequelize.col("likedPosts"), req.params.postID)}
+      )
+    }
+  })
+});
+  
+
 
 };
 
