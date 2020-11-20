@@ -1,4 +1,5 @@
 client/node_modules/
+server/node_modules/
 package-lock.json
 server/node_modules/
 #This file contains passwords in plain text, so I am not including it in a public repo
