@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Row, Col, Jumbotron, Card } from "reactstrap";
+import { Container, Jumbotron } from "reactstrap";
 import AuthService from "../../../services/auth-service";
 import PostService from "../../../services/post-service";
 import { UserContext } from "../../../context/UserContext";
@@ -30,7 +30,6 @@ export default function PostPage({ match, location }) {
         setBody("Error loading post!");
       }
       setBody(res.postBody);
-      console.log(body.postBody);
     });
   }, []);
 
@@ -45,6 +44,5 @@ export default function PostPage({ match, location }) {
       </Jumbotron>
       <CommentForm />
     </Container>
-
   );
 }

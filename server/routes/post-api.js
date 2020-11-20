@@ -3,7 +3,6 @@ var bodyParser = require("body-parser");
 ("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 //Connect to Database
 var db = require("../models");
 const user = require("../models/user");
@@ -44,90 +43,80 @@ module.exports = function (app) {
   //GET ALL POSTS FROM POSTS TABLE
   app.get("/api/forumposts", async (req, res) => {
     db.Post.findAll({
-      include: [{
-        model: db.User
-      }]
+      include: [
+        {
+          model: db.User,
+        },
+      ],
     }).then((postDump) => {
       res.json(postDump);
     });
   });
 
-
-
-// GET ALL POSTS FROM SPECIFIC USER
-app.get("/api/userposts", verifyToken, async(req, res) => {
-  jwt.verify(req.token, "secretkey", (error, authData) => {
-    if (error) {
-      console.log(error);
-      res.sendStatus(403);
-    } else {
-      console.log("REQ BODY: ");
-      console.log(req.body);
-      db.Post.findAll({
-        where: {
-        UserId: authData.id
-        }
-      }).then((userPosts) => {
-      res.json( userPosts );
-    })
-    }
+  // GET ALL POSTS FROM SPECIFIC USER
+  app.get("/api/userposts", verifyToken, async (req, res) => {
+    jwt.verify(req.token, "secretkey", (error, authData) => {
+      if (error) {
+        console.log(error);
+        res.sendStatus(403);
+      } else {
+        db.Post.findAll({
+          where: {
+            UserId: authData.id,
+          },
+        }).then((userPosts) => {
+          res.json(userPosts);
+        });
+      }
+    });
   });
-});
 
-//Delete a post from the user page
-app.delete("/api/deletePost/id=:postID", verifyToken, async(req, res) => {
-  jwt.verify(req.token, "secretkey", (error, authData) => {
-    if (error) {
-      console.log(error);
-      res.sendStatus(403);
-    } else {
-      console.log("REQ BODY: ");
-      console.log(req.body);
-      db.Post.destroy({
-        where: {
-        id: req.params.postID
-        }
-      });
-      res.json({message: "Post Deleted"});
-    }
+  //Delete a post from the user page
+  app.delete("/api/deletePost/id=:postID", verifyToken, async (req, res) => {
+    jwt.verify(req.token, "secretkey", (error, authData) => {
+      if (error) {
+        res.sendStatus(403);
+      } else {
+        db.Post.destroy({
+          where: {
+            id: req.params.postID,
+          },
+        });
+        res.json({ message: "Post Deleted" });
+      }
+    });
   });
-});
 
-// API that allows a user to like a post. This adds the user to an array of users that have liked the posts, updates the number of likes, and adds the post to an array of posts that the user has liked.
-app.put("/api/likepost/id=:postID", verifyToken, async(req, res) =>{
-  jwt.verify(req.token, "secretkey", (error, authData) => {
-    // CHECK IF USER HAS ALREADY LIKED POST
-    // db.Post.findAll(
-    //   {likedBy: { [sequelize.Op.contains]: [authData.id]}},
-    //   {where: {id: req.params.postID}}).then((result) => {
-    //     console.log(result);
-    //     var check = result;
-    //     return check;
-    //   })
-    // console.log(check)
-    if (error) {
-      console.log(error);
-      res.sendStatus(403);
-    }
-    else {
-      console.log("LIKE POST:" + req.params.postID);
-      db.Post.update(
-        {likedBy: db.sequelize.fn('array_append', db.sequelize.col('likedBy'), authData.id),
-         rating: db.sequelize.literal("rating + 1")},
-        {where: {id: req.params.postID}}
-      )
-      db.User.update(
-        {likedPosts: db.sequelize.fn('array_append', db.sequelize.col("likedPosts"), req.params.postID)}
-      )
-    }
-  })
-});
-  
-
-
+  // API that allows a user to like a post. This adds the user to an array of users that have liked the posts, updates the number of likes, and adds the post to an array of posts that the user has liked.
+  app.put("/api/likepost/id=:postID", verifyToken, async (req, res) => {
+    jwt.verify(
+      req.token,
+      "secretkey",
+      (error, authData) => {
+        if (error) {
+          res.sendStatus(403);
+        } else {
+          db.Post.update(
+            {
+              likedBy: db.sequelize.fn(
+                "array_append",
+                db.sequelize.col("likedBy"),
+                authData.id
+              ),
+              rating: db.sequelize.literal("rating + 1"),
+            },
+            { where: { id: req.params.postID } }
+          ).then((updated) => {
+            res.json(updated);
+          });
+        }
+      }
+      // db.User.update(
+      //   {likedPosts: db.sequelize.fn('array_append', db.sequelize.col("likedPosts"), req.params.postID)}
+      // )
+    );
+  });
 };
-
-
 
 // TOKEN FORMAT
 // Authorization: Bearer <access token>

@@ -14,12 +14,11 @@ import {
 } from "reactstrap";
 
 const PostCard = (props) => {
-
-function deletePost(event) {
-  event.preventDefault();
+  function deletePost(event) {
+    event.preventDefault();
     console.log("DELETING POST");
-    PostService.DeletePost(props.postID);
-}
+    PostService.deletePost(props.postID);
+  }
 
   return (
     <PostWrapper>
@@ -46,8 +45,9 @@ function deletePost(event) {
               <Button className="float-right">Like</Button>
             </CardFooter>
 
-            <Button onClick={deletePost} color="danger">Delete</Button>
-
+            <Button onClick={deletePost} color="danger">
+              Delete
+            </Button>
           </Card>
         </Col>
       </Row>

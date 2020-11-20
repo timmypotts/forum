@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { PostWrapper } from "../styles/index";
 import PostService from "../services/post-service";
+import authHeader from "../services/auth-header";
 
 import {
   Col,
@@ -11,20 +12,12 @@ import {
   CardBody,
   Row,
   Button,
-  Border
 } from "reactstrap";
 
-
-
-
 const PostCard = (props) => {
-
   function likePost() {
-    console.log("LIKED!");
     PostService.likePost(props.postID);
-  
   }
-
 
   return (
     <PostWrapper>
@@ -48,12 +41,15 @@ const PostCard = (props) => {
               <p className="text-left">{props.body}</p>
             </CardBody>
             <CardFooter>
-              <h3 className="float-left text-secondary border pl-3 pr-3 pt-1">{props.rating}</h3>
+              <h3 className="float-left text-secondary border pl-3 pr-3 pt-1">
+                {props.rating}
+              </h3>
               <Button className="float-right" type="" color="success">
                 Comments
               </Button>
-              <Button className="float-right mr-2" onClick={likePost}>Like</Button>
-
+              <Button className="float-right mr-2" onClick={likePost}>
+                Like
+              </Button>
             </CardFooter>
           </Card>
         </Col>

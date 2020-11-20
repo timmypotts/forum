@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import PostCard from "../../PostCard";
 import PostForm from "./PostForm";
 import moment from "moment";
@@ -26,7 +26,6 @@ export default function Home() {
         return null;
       }
       setPosts(res);
-      console.log(res);
     });
   }, []);
 

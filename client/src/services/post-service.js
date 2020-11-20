@@ -4,8 +4,6 @@ import authHeader from "./auth-header";
 const API_URL = "http://localhost:8080/api/";
 
 class PostService {
-
-
   submitPost(title, body) {
     return axios
       .post(
@@ -23,18 +21,29 @@ class PostService {
   }
 
   async getPostsFromUser() {
-    return axios.get(
-      API_URL + "userposts",
-      {headers: authHeader()}
-    ).then((response) => {
-      return response;
-    })
+    return axios
+      .get(API_URL + "userposts", { headers: authHeader() })
+      .then((response) => {
+        return response;
+      });
   }
 
-  DeletePost(postID) {
-    return axios.delete(API_URL + "deletePost/id=" + postID, {headers: authHeader()}).then((response) => {
-      return response;
-    })
+  deletePost(postID) {
+    return axios
+      .delete(API_URL + "deletePost/id=" + postID, { headers: authHeader() })
+      .then((response) => {
+        return response;
+      });
+  }
+
+  likePost(postID) {
+    console.log(authHeader());
+    return axios
+      .put(API_URL + "likepost/id=" + postID, {}, { headers: authHeader() })
+      .then((response) => {
+        console.log(response);
+        return response.data;
+      });
   }
 
   async getUser(userID) {
@@ -50,25 +59,11 @@ class PostService {
     });
   }
 
-
-  async likePost(postID) {
-    return axios
-    .put(API_URL + "likepost/id=" + postID,
-      { headers: authHeader() }
-    )
-    .then((response) => {
-      console.log(response);
-      return response.data;
-    });
-  }
-
-
   async loadPosts() {
     return axios.get(API_URL + "forumposts").then((response) => {
       return response.data;
     });
   }
 }
-
 
 export default new PostService();
