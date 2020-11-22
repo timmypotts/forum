@@ -19,6 +19,28 @@ class LikeService {
         return response.data;
       });
   }
+
+  async likeComment(commentID) {
+    return axios
+      .post(
+        API_URL + "likeCommment/id=" + commentID,
+        {},
+        { headers: authHeader() }
+      )
+      .then((response) => {
+        return response.data;
+      });
+  }
+
+  async unlikeComment(commentID) {
+    return axios
+      .delete(API_URL + "unlikeComment/id=" + commentID, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
 }
 
 export default new LikeService();

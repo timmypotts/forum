@@ -43,7 +43,7 @@ const PostCard = (props) => {
       <Row className="mt-3 mb-3">
         <Col>
           <Card>
-            <CardHeader>
+            <CardHeader className="mb-0">
               <Link to={`/postpage/${props.postID}/${props.title}/`}>
                 <Row>
                   <h3 className="float-left">{props.title}</h3>
@@ -51,10 +51,10 @@ const PostCard = (props) => {
               </Link>
               <Row>
                 <Col className="ml-0 pl-0">
-                  <p className="float-left ml-0">{props.date}</p>
+                  <p className="float-left ml-0 mb-0">{props.date}</p>
                 </Col>
                 <Col>
-                  <p className="float-right"> By: {props.author}</p>
+                  <p className="float-right mb-0"> By: {props.author}</p>
                 </Col>
               </Row>
             </CardHeader>

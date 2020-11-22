@@ -10,9 +10,18 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    rating: {
-      type: DataTyped.INTEGER,
+    username: {
+      type: DataTypes.STRING,
       allowNull: false,
+    },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    parentComment: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     createdAt: DataTypes.DATE,
   });
@@ -26,7 +35,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Comment.hasMany(models.Like, {
-      onDelete: cascade,
+      onDelete: "cascade",
     });
 
     Comment.belongsTo(models.Post, {

@@ -64,6 +64,37 @@ module.exports = function (app) {
       }
     });
   });
+
+  app.post("/api/likecomment/id=:commentID", verifyToken, async (req, res) => {
+    jwt.verify(req.token, "secretkey", (error, authData) => {
+      if (error) {
+        res.sendStatus(403);
+      } else {
+        db.Like.create({
+          CommentID: req.params.commentID,
+          UserId: authData.id,
+        })
+          .then(() => {
+            return db.Like.count({
+              where: { CommentId: req.params.commentID },
+            });
+          })
+          .then((c) => {
+            console.log(c);
+            db.Comment.update(
+              {
+                rating: c,
+              },
+              { where: { id: req.params.commentID } }
+            );
+            res.json(c);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  });
   // TOKEN FORMAT
   // Authorization: Bearer <access token>
 

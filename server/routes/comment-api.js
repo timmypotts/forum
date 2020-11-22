@@ -11,10 +11,42 @@ module.exports = function (app) {
   // TOKEN FORMAT
   // Authorization: Bearer <access token>
 
+  //Post a comment
   app.post("/api/comment/postID=:postID", verifyToken, async (req, res) => {
-    db.Comment.create({
-      PostId: req.params.postID,
-      UserId: authData.id,
+    jwt.verify(req.token, "secretkey", (error, authData) => {
+      if (error) {
+        console.log(error);
+        res.sendStatus(403);
+      } else {
+        db.Comment.create({
+          PostId: req.params.postID,
+          UserId: authData.id,
+          comment: req.body.commentText,
+          username: authData.user,
+        })
+          .then((commentData) => {
+            res.json(commentData);
+          })
+          .catch((err) => {
+            res.json(err);
+          });
+      }
+    });
+  });
+
+  app.get("/api/comment/fetch-all/postID=:postID", async (req, res) => {
+    db.Comment.findAll({
+      include: [
+        {
+          model: db.User,
+        },
+        {
+          model: db.Like,
+        },
+      ],
+      where: { PostId: req.params.postID },
+    }).then((postDump) => {
+      res.json(postDump);
     });
   });
 

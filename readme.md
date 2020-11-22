@@ -26,7 +26,7 @@ In order for the backend to work locally, you need to create a directory server/
     "database": "",
     "host": "",
     "port": "",
-    "dialect": "mysql"
+    "dialect": ""
   }
 }
 ```

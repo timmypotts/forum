@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import {
+  Row,
   Col,
   Card,
   CardHeader,
@@ -13,14 +14,34 @@ import {
 import AuthService from "../../../services/auth-service";
 import CheckUser from "../../../context/CheckUser";
 import { UserContext } from "../../../context/UserContext";
+import CommentService from "../../../services/comment-service";
 
-const CommentForm = () => {
+const CommentForm = (props) => {
+  const [error, setError] = "";
+  const [comment, setComment] = useState(``);
+  const postID = props.postID.postID;
+
+  function handleSubmit(event) {
+    if (comment === ``) {
+      setError("Please create a title for this post");
+      return;
+    }
+    console.log("submitting");
+    event.preventDefault();
+    CommentService.submitComment(postID, comment).catch((err) => {
+      console.log(postID);
+      console.log(err);
+    });
+  }
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <FormGroup>
         <Label for="Comment">Comment</Label>
         <Input
+          onChange={(e) => setComment(e.target.value)}
           type="textarea"
+          value={comment}
           name="comment"
           rows="5"
           id="comment"

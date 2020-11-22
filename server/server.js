@@ -27,6 +27,7 @@ app.use(express.static("public"));
 require("./routes/user-api.js")(app);
 require("./routes/post-api")(app);
 require("./routes/likes-api.js")(app);
+require("./routes/comment-api")(app);
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: false }).then(function () {

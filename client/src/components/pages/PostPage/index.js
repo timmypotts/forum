@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Jumbotron } from "reactstrap";
+import { Container, Jumbotron, Row, Col } from "reactstrap";
 import AuthService from "../../../services/auth-service";
 import PostService from "../../../services/post-service";
+import CommentService from "../../../services/comment-service";
 import { UserContext } from "../../../context/UserContext";
 import CommentForm from "./CommentForm";
+import CommentCard from "../../CommentCard";
 
 export default function PostPage({ match, location }) {
   const { user, setUser } = useContext(UserContext);
@@ -13,6 +15,7 @@ export default function PostPage({ match, location }) {
 
   const [body, setBody] = useState("");
   const [rating, setRating] = useState(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -21,6 +24,16 @@ export default function PostPage({ match, location }) {
     } else {
       console.log("no user");
     }
+  }, []);
+
+  useEffect(() => {
+    CommentService.getComments({ postID }).then((res) => {
+      if (!res) {
+        return null;
+      }
+
+      setComments(res);
+    });
   }, []);
 
   async function getBody() {
@@ -36,15 +49,27 @@ export default function PostPage({ match, location }) {
 
   return (
     <Container>
-      <Jumbotron>
-        <h3 className="display-5 text-left">{postTitle}</h3>
+      <Row>
+        <Jumbotron>
+          <h3 className="display-5 text-left">{postTitle}</h3>
 
-        <hr className="my-2" />
+          <hr className="my-2" />
 
-        <p className="lead text-left">{body}</p>
-        <p className="text-left">{rating}</p>
-      </Jumbotron>
-      <CommentForm />
+          <p className="lead text-left">{body}</p>
+          <p className="text-left">{rating}</p>
+        </Jumbotron>
+      </Row>
+      <Row className="mb-4">
+        <Col>
+          <CommentForm postID={{ postID }} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <CommentCard />
+        </Col>
+      </Row>
     </Container>
   );
 }
