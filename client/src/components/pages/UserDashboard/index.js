@@ -6,10 +6,10 @@ import { UserContext } from "../../../context/UserContext";
 import AuthService from "../../../services/auth-service";
 import PostService from "../../../services/post-service";
 
-export default function UserDashboard({match, location}) {
+export default function UserDashboard({ match, location }) {
   const { user, setUser } = useContext(UserContext);
   const {
-    params : {username},
+    params: { username },
   } = match;
   const [posts, setPosts] = useState([]);
 
@@ -25,36 +25,39 @@ export default function UserDashboard({match, location}) {
 
   useEffect(() => {
     PostService.getPostsFromUser().then((res) => {
-      if(!res) {
+      if (!res) {
         return null;
       }
       setPosts(res.data);
       console.log(res);
     });
-  }, [])
+  }, []);
 
   return (
     <Container>
       <Row>
         <h1 className="float-left">Hello {user}</h1>
       </Row>
-      <Row><h4>Post History:</h4></Row>
+      <Row>
+        <h4>Post History:</h4>
+      </Row>
 
       {posts.length ? (
         <div>
           {posts.map((post) => (
             <DashPostCard
+              key={post.id}
               postID={post.id}
               title={post.postTitle}
               body={post.postBody}
               date={moment(post.createdAt).calendar()}
+              rating={post.rating}
             />
           ))}
         </div>
       ) : (
         <h1>Loading</h1>
       )}
-
     </Container>
   );
 }

@@ -50,10 +50,12 @@ const PostCard = (props) => {
                 </Row>
               </Link>
               <Row>
-                <p>{props.date}</p>
-              </Row>
-              <Row>
-                <p className="float-right"> By: {props.author}</p>
+                <Col className="ml-0 pl-0">
+                  <p className="float-left ml-0">{props.date}</p>
+                </Col>
+                <Col>
+                  <p className="float-right"> By: {props.author}</p>
+                </Col>
               </Row>
             </CardHeader>
             <CardBody className="float-left">

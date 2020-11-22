@@ -44,6 +44,9 @@ module.exports = function (app) {
         {
           model: db.User,
         },
+        {
+          model: db.Like,
+        },
       ],
     }).then((postDump) => {
       res.json(postDump);

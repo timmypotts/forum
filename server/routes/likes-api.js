@@ -3,7 +3,6 @@ var bodyParser = require("body-parser");
 
 //Connect to Database
 var db = require("../models");
-const user = require("../models/user");
 module.exports = function (app) {
   // Middleware
   app.use(bodyParser.urlencoded({ extended: false }));

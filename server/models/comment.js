@@ -10,10 +10,12 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    rating: {
+      type: DataTyped.INTEGER,
+      allowNull: false,
+    },
     createdAt: DataTypes.DATE,
   });
-
-
 
   //The comments have to be associated to both the users that wrote them, and the post that they are commenting on
   Comment.associate = function (models) {
@@ -21,6 +23,10 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: {
         allowNull: false,
       },
+    });
+
+    Comment.hasMany(models.Like, {
+      onDelete: cascade,
     });
 
     Comment.belongsTo(models.Post, {

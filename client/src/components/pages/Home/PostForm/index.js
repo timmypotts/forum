@@ -8,7 +8,7 @@ const PostForm = (props) => {
   const [error, setError] = useState(null);
 
   function handleSubmit(event) {
-    if (title === ``){
+    if (title === ``) {
       setError("Please create a title for this post");
       return;
     }
@@ -22,7 +22,9 @@ const PostForm = (props) => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormGroup>
-        <Label for="title">Title</Label>
+        <Label className="text-left float-left" for="title">
+          Title:
+        </Label>
         <Input
           onChange={(e) => setTitle(e.target.value)}
           type="text"
@@ -33,7 +35,9 @@ const PostForm = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="body">Body</Label>
+        <Label for="body" className="text-left float-left">
+          Body:
+        </Label>
         <Input
           onChange={(e) => setBody(e.target.value)}
           type="textarea"
@@ -49,7 +53,7 @@ const PostForm = (props) => {
           Submit
         </Button>
       </FormGroup>
-      {error ? (null) : (<h3>{error}</h3>)}
+      {error ? null : <p>{error}</p>}
     </Form>
   );
 };
