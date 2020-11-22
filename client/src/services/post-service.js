@@ -36,16 +36,6 @@ class PostService {
       });
   }
 
-  likePost(postID) {
-    console.log(authHeader());
-    return axios
-      .put(API_URL + "likepost/id=" + postID, {}, { headers: authHeader() })
-      .then((response) => {
-        console.log(response);
-        return response.data;
-      });
-  }
-
   async getUser(userID) {
     return axios.get(API_URL + "authorID=" + userID).then((response) => {
       return response.data;
@@ -55,12 +45,13 @@ class PostService {
   async getPost(postID) {
     var pk = postID.postID;
     return axios.get(API_URL + "forumposts/" + pk).then((response) => {
-      return response.data;
+      return response;
     });
   }
 
   async loadPosts() {
     return axios.get(API_URL + "forumposts").then((response) => {
+      console.log(response);
       return response.data;
     });
   }

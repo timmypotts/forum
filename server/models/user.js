@@ -20,11 +20,6 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
-    likedPosts: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: false,
-      defaultValue: []
-    },
     createdAt: DataTypes.DATE,
   });
 
@@ -32,6 +27,13 @@ module.exports = function (sequelize, DataTypes) {
     // Associating Author with Posts
     // When an Author is deleted, also delete any associated Posts
     User.hasMany(models.Post, {
+      onDelete: "cascade",
+    });
+
+    User.hasMany(models.Comment, {
+      onDelete: "cascade",
+    });
+    User.hasMany(models.Like, {
       onDelete: "cascade",
     });
   };

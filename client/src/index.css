@@ -29,9 +29,14 @@ body {
   cursor: pointer;
 }
 
+.likeButton {
+  height: 32px;
+  width: 32px;
+}
+
 .delete-button {
   cursor: pointer;
 }
-delete-button:hover{
+delete-button:hover {
   font-weight: bold;
 }

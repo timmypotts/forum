@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { PostWrapper } from "../styles/index";
-import PostService from "../services/post-service";
-import authHeader from "../services/auth-header";
+import LikeService from "../services/like-service";
+import notLiked from "./img/not-liked.png";
+import likedicon from "./img/liked.png";
 
 import {
   Col,
@@ -15,8 +16,26 @@ import {
 } from "reactstrap";
 
 const PostCard = (props) => {
-  function likePost() {
-    PostService.likePost(props.postID);
+  const [rating, setRating] = useState(props.rating);
+  const [liked, setLiked] = useState(false);
+  const [error, setError] = useState("");
+
+  async function likePost() {
+    if (JSON.parse(localStorage.getItem("user")) == null) {
+      setError("Please sign in to like a post");
+      return;
+    }
+    setLiked(true);
+    let newRating = await LikeService.likePost(props.postID);
+    console.log(newRating);
+    setRating(newRating);
+  }
+
+  async function unlikePost() {
+    setLiked(false);
+    let newRating = await LikeService.unlikePost(props.postID);
+    console.log(newRating);
+    setRating(newRating);
   }
 
   return (
@@ -41,15 +60,32 @@ const PostCard = (props) => {
               <p className="text-left">{props.body}</p>
             </CardBody>
             <CardFooter>
-              <h3 className="float-left text-secondary border pl-3 pr-3 pt-1">
-                {props.rating}
-              </h3>
-              <Button className="float-right" type="" color="success">
+              <Button className="float-right" type="">
                 Comments
               </Button>
-              <Button className="float-right mr-2" onClick={likePost}>
-                Like
-              </Button>
+              {liked ? (
+                <button className="float-left mr-2">
+                  <img
+                    className="likeButton"
+                    src={likedicon}
+                    alt="click to unlike post"
+                    onClick={unlikePost}
+                  />
+                </button>
+              ) : (
+                <button className="float-left mr-2">
+                  <img
+                    className="likeButton"
+                    src={notLiked}
+                    alt="click to like post"
+                    onClick={likePost}
+                  />
+                </button>
+              )}
+              <h3 className="float-left text-secondary pl-3 pr-3 pt-1">
+                {rating}
+              </h3>
+              {error === "" ? null : <p className="error-text"> {error} </p>}
             </CardFooter>
           </Card>
         </Col>

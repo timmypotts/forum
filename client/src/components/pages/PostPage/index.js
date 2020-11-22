@@ -12,26 +12,27 @@ export default function PostPage({ match, location }) {
   } = match;
 
   const [body, setBody] = useState("");
+  const [rating, setRating] = useState(null);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-      console.log(user);
       setUser(user.username);
     } else {
       console.log("no user");
     }
   }, []);
 
-  useEffect(() => {
-    PostService.getPost({ postID }).then((res) => {
-      console.log(res);
-      if (!res) {
-        setBody("Error loading post!");
-      }
-      setBody(res.postBody);
-    });
-  }, []);
+  async function getBody() {
+    let response = await PostService.getPost({ postID });
+    if (!response) {
+      setBody("Error loading post!");
+    }
+    setRating(response.data.rating);
+    setBody(response.data.postBody);
+  }
+
+  getBody();
 
   return (
     <Container>
@@ -41,6 +42,7 @@ export default function PostPage({ match, location }) {
         <hr className="my-2" />
 
         <p className="lead text-left">{body}</p>
+        <p className="text-left">{rating}</p>
       </Jumbotron>
       <CommentForm />
     </Container>

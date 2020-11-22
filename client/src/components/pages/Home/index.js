@@ -34,7 +34,7 @@ export default function Home() {
       <Row mb={3}>
         <Col>
           {user ? (
-            <PostForm mb={5}/>
+            <PostForm mb={5} />
           ) : (
             <h4>
               Sign in or create an account to make a post. Don't use a password
@@ -43,7 +43,7 @@ export default function Home() {
             </h4>
           )}
         </Col>
-      </Row >
+      </Row>
 
       {posts.length ? (
         <div>
