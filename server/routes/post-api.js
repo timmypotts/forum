@@ -31,8 +31,12 @@ module.exports = function (app) {
 
   //GET SPECIFIC POST
   app.get("/api/forumposts/:id", async (req, res) => {
-    var primaryKey = req.params.id;
-    db.Post.findByPk(primaryKey).then((post) => {
+    db.Post.findOne({
+      where: { id: req.params.id },
+      include: {
+        model: db.User,
+      },
+    }).then((post) => {
       res.json(post);
     });
   });

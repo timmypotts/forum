@@ -11,9 +11,6 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import AuthService from "../../../services/auth-service";
-import CheckUser from "../../../context/CheckUser";
-import { UserContext } from "../../../context/UserContext";
 import CommentService from "../../../services/comment-service";
 
 const CommentForm = (props) => {
@@ -27,7 +24,6 @@ const CommentForm = (props) => {
       return;
     }
     console.log("submitting");
-    event.preventDefault();
     CommentService.submitComment(postID, comment).catch((err) => {
       console.log(postID);
       console.log(err);

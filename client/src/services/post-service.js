@@ -45,6 +45,7 @@ class PostService {
   async getPost(postID) {
     var pk = postID.postID;
     return axios.get(API_URL + "forumposts/" + pk).then((response) => {
+      console.log(response);
       return response;
     });
   }

@@ -71,7 +71,7 @@ module.exports = function (app) {
         res.sendStatus(403);
       } else {
         db.Like.create({
-          CommentID: req.params.commentID,
+          CommentId: req.params.commentID,
           UserId: authData.id,
         })
           .then(() => {
@@ -95,6 +95,36 @@ module.exports = function (app) {
       }
     });
   });
+
+  app.delete(
+    "/api/unlikecomment/id=:commentID",
+    verifyToken,
+    async (req, res) => {
+      jwt.verify(req.token, "secretkey", (error, authData) => {
+        if (error) {
+          res.sendStatus(403);
+        } else {
+          db.Like.destroy({
+            where: { CommentId: req.params.commentID, UserId: authData.id },
+          })
+            .then(() => {
+              return db.Like.count({
+                where: { CommentId: req.params.commentID },
+              });
+            })
+            .then((c) => {
+              db.Comment.update(
+                {
+                  rating: c,
+                },
+                { where: { id: req.params.commentID } }
+              );
+              res.json(c);
+            });
+        }
+      });
+    }
+  );
   // TOKEN FORMAT
   // Authorization: Bearer <access token>
 

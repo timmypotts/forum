@@ -15,7 +15,8 @@ class CommentService {
   }
 
   async submitComment(postID, commentText) {
-    postID = postID.postID;
+    console.log(postID);
+    console.log(commentText);
     return axios
       .post(
         API_URL + "comment/postID=" + postID,

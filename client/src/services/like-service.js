@@ -23,7 +23,7 @@ class LikeService {
   async likeComment(commentID) {
     return axios
       .post(
-        API_URL + "likeCommment/id=" + commentID,
+        API_URL + "likecomment/id=" + commentID,
         {},
         { headers: authHeader() }
       )
@@ -34,7 +34,7 @@ class LikeService {
 
   async unlikeComment(commentID) {
     return axios
-      .delete(API_URL + "unlikeComment/id=" + commentID, {
+      .delete(API_URL + "unlikecomment/id=" + commentID, {
         headers: authHeader(),
       })
       .then((response) => {
