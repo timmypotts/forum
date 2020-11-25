@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col, Button, ButtonGroup } from "reactstrap";
 import DashPostCard from "../../DashPostCard";
+import CommentCard from "../../CommentCard";
 import moment from "moment";
 import { UserContext } from "../../../context/UserContext";
 import AuthService from "../../../services/auth-service";
 import PostService from "../../../services/post-service";
+import CommentService from "../../../services/comment-service";
 
 export default function UserDashboard({ match, location }) {
   const { user, setUser } = useContext(UserContext);
@@ -12,6 +14,8 @@ export default function UserDashboard({ match, location }) {
     params: { username },
   } = match;
   const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [grab, setGrab] = useState("Post");
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -24,14 +28,59 @@ export default function UserDashboard({ match, location }) {
   }, []);
 
   useEffect(() => {
-    PostService.getPostsFromUser().then((res) => {
-      if (!res) {
-        return null;
-      }
-      setPosts(res.data);
-      console.log(res);
-    });
-  }, []);
+    if (grab === "Comment") {
+      CommentService.getCommentsFromCurrentUser().then((res) => {
+        if (!res) {
+          return null;
+        }
+        setComments(res.data);
+        console.log(res);
+      });
+    } else {
+      PostService.getPostsFromCurrentUser().then((res) => {
+        if (!res) {
+          return null;
+        }
+        setPosts(res.data);
+        console.log(res);
+      });
+    }
+  }, [grab]);
+
+  function renderPosts() {
+    return posts.length ? (
+      <div>
+        {posts.map((post) => (
+          <DashPostCard
+            key={post.id}
+            postID={post.id}
+            title={post.postTitle}
+            body={post.postBody}
+            date={moment(post.createdAt).calendar()}
+            rating={post.rating}
+          />
+        ))}
+      </div>
+    ) : (
+      <h1>Loading</h1>
+    );
+  }
+
+  function renderComments() {
+    return comments.length ? (
+      <div>
+        {comments.map((comment) => (
+          <CommentCard
+            key={comment.id}
+            commentID={comment.id}
+            commentText={comment.comment}
+            author={comment.username}
+            rating={comment.rating}
+          />
+        ))}
+      </div>
+    ) : null;
+  }
 
   return (
     <Container>
@@ -39,25 +88,28 @@ export default function UserDashboard({ match, location }) {
         <h1 className="float-left">Hello {user}</h1>
       </Row>
       <Row>
-        <h4>Post History:</h4>
+        <ButtonGroup className="float-right pb-2">
+          <Button
+            disabled={grab === "Post"}
+            onClick={() => setGrab("Post")}
+            className="float-right"
+          >
+            Posts
+          </Button>
+          <Button
+            disabled={grab === "Comment"}
+            onClick={() => setGrab("Comment")}
+            className="float-right"
+          >
+            Comments
+          </Button>
+        </ButtonGroup>
       </Row>
 
-      {posts.length ? (
-        <div>
-          {posts.map((post) => (
-            <DashPostCard
-              key={post.id}
-              postID={post.id}
-              title={post.postTitle}
-              body={post.postBody}
-              date={moment(post.createdAt).calendar()}
-              rating={post.rating}
-            />
-          ))}
-        </div>
-      ) : (
-        <h1>Loading</h1>
-      )}
+      <Row>
+        <h4>{grab} History:</h4>
+      </Row>
+      <div>{grab === "Post" ? renderPosts() : renderComments()}</div>
     </Container>
   );
 }

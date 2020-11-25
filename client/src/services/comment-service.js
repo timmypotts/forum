@@ -9,20 +9,35 @@ class CommentService {
     return axios
       .get(API_URL + "comment/fetch-all/postID=" + postID)
       .then((response) => {
-        console.log(response.data);
         return response.data;
       });
   }
 
   async submitComment(postID, commentText) {
-    console.log(postID);
-    console.log(commentText);
     return axios
       .post(
         API_URL + "comment/postID=" + postID,
         { commentText },
         { headers: authHeader() }
       )
+      .then((response) => {
+        return response;
+      });
+  }
+
+  async deleteComment(commentID) {
+    return axios
+      .delete(API_URL + "comment/delete/" + commentID, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        return response;
+      });
+  }
+
+  async getCommentsFromCurrentUser() {
+    return axios
+      .get(API_URL + "comment/usercomments", { headers: authHeader() })
       .then((response) => {
         return response;
       });

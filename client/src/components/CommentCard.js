@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import LikeService from "../services/like-service";
 import notLiked from "./img/not-liked.png";
 import likedicon from "./img/liked.png";
 
-import {
-  Col,
-  Card,
-  CardHeader,
-  CardFooter,
-  CardBody,
-  Row,
-  Button,
-} from "reactstrap";
+import { Card, CardHeader, CardBody } from "reactstrap";
 
 const CommentCard = (props) => {
   const [liked, setLiked] = useState(false);

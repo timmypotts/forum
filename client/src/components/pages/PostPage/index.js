@@ -77,6 +77,7 @@ export default function PostPage({ match, location }) {
             <div>
               {comments.map((comment) => (
                 <CommentCard
+                  key={comment.id}
                   commentID={comment.id}
                   commentText={comment.comment}
                   author={comment.username}

@@ -30,7 +30,7 @@ module.exports = function (app) {
   });
 
   //GET SPECIFIC POST
-  app.get("/api/forumposts/:id", async (req, res) => {
+  app.get("/api/forumpost/:id", async (req, res) => {
     db.Post.findOne({
       where: { id: req.params.id },
       include: {
@@ -57,8 +57,8 @@ module.exports = function (app) {
     });
   });
 
-  // GET ALL POSTS FROM SPECIFIC USER
-  app.get("/api/userposts", verifyToken, async (req, res) => {
+  // GET ALL POSTS FROM LOGGED IN USER
+  app.get("/api/forumposts/userposts", verifyToken, async (req, res) => {
     jwt.verify(req.token, "secretkey", (error, authData) => {
       if (error) {
         console.log(error);
@@ -76,20 +76,24 @@ module.exports = function (app) {
   });
 
   //Delete a post from the user page
-  app.delete("/api/deletePost/id=:postID", verifyToken, async (req, res) => {
-    jwt.verify(req.token, "secretkey", (error, authData) => {
-      if (error) {
-        res.sendStatus(403);
-      } else {
-        db.Post.destroy({
-          where: {
-            id: req.params.postID,
-          },
-        });
-        res.json({ message: "Post Deleted" });
-      }
-    });
-  });
+  app.delete(
+    "/api/forumposts/delete/id=:postID",
+    verifyToken,
+    async (req, res) => {
+      jwt.verify(req.token, "secretkey", (error, authData) => {
+        if (error) {
+          res.sendStatus(403);
+        } else {
+          db.Post.destroy({
+            where: {
+              id: req.params.postID,
+            },
+          });
+          res.json({ message: "Post Deleted" });
+        }
+      });
+    }
+  );
 };
 
 // TOKEN FORMAT

@@ -20,9 +20,9 @@ class PostService {
       });
   }
 
-  async getPostsFromUser() {
+  async getPostsFromCurrentUser() {
     return axios
-      .get(API_URL + "userposts", { headers: authHeader() })
+      .get(API_URL + "forumposts/userposts", { headers: authHeader() })
       .then((response) => {
         return response;
       });
@@ -30,21 +30,17 @@ class PostService {
 
   deletePost(postID) {
     return axios
-      .delete(API_URL + "deletePost/id=" + postID, { headers: authHeader() })
+      .delete(API_URL + "forumposts/delete/id=" + postID, {
+        headers: authHeader(),
+      })
       .then((response) => {
         return response;
       });
   }
 
-  async getUser(userID) {
-    return axios.get(API_URL + "authorID=" + userID).then((response) => {
-      return response.data;
-    });
-  }
-
   async getPost(postID) {
     var pk = postID.postID;
-    return axios.get(API_URL + "forumposts/" + pk).then((response) => {
+    return axios.get(API_URL + "forumpost/" + pk).then((response) => {
       console.log(response);
       return response;
     });
