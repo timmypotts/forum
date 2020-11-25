@@ -17,12 +17,11 @@ import {
   Button,
 } from "reactstrap";
 
-const PostCard = (props) => {
+const DashPostCard = (props) => {
   function deletePost(event) {
     event.preventDefault();
     console.log("DELETING POST");
     PostService.deletePost(props.postID);
-    // window.location.reload(false);
   }
 
   const [rating, setRating] = useState(props.rating);
@@ -108,4 +107,4 @@ const PostCard = (props) => {
   );
 };
 
-export default PostCard;
+export default DashPostCard;

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, FormText, Label, Input } from "reactstrap";
 import PostService from "../../../../services/post-service";
 
 const PostForm = (props) => {
   const [title, setTitle] = useState(``);
   const [body, setBody] = useState(``);
   const [error, setError] = useState(null);
+  const [selectedFile, setSelectedFile] = useState([]);
 
   function handleSubmit(event) {
     if (title === ``) {
@@ -49,7 +50,21 @@ const PostForm = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Button className="float-left" color="info" type="submit">
+        <Label for="file" className="text-left float-left">
+          File
+        </Label>
+        <Input
+          type="file"
+          name="file"
+          id="file"
+          value={selectedFile}
+          onChange={(e) => {
+            console.log(e);
+          }}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Button className="float-left mb-3" color="info" type="submit">
           Submit
         </Button>
       </FormGroup>

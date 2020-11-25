@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button, ButtonGroup } from "reactstrap";
 import DashPostCard from "../../DashPostCard";
-import CommentCard from "../../CommentCard";
+import DashCommentCard from "../../DashCommentCard";
 import moment from "moment";
 import { UserContext } from "../../../context/UserContext";
 import AuthService from "../../../services/auth-service";
@@ -47,6 +47,7 @@ export default function UserDashboard({ match, location }) {
     }
   }, [grab]);
 
+  // This function is called when the user has selected posts to be loaded
   function renderPosts() {
     return posts.length ? (
       <div>
@@ -66,11 +67,12 @@ export default function UserDashboard({ match, location }) {
     );
   }
 
+  // This function is called when the user has selected comments to be loaded
   function renderComments() {
     return comments.length ? (
       <div>
         {comments.map((comment) => (
-          <CommentCard
+          <DashCommentCard
             key={comment.id}
             commentID={comment.id}
             commentText={comment.comment}
