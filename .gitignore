@@ -4,3 +4,4 @@ package-lock.json
 server/node_modules/
 #This file contains passwords in plain text, so I am not including it in a public repo
 server/.*
+server/uploads/*

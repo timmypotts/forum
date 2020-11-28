@@ -14,12 +14,8 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    imageType: {
+    image: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
-    imageData: {
-      type: DataTypes.BLOB("long"),
       allowNull: true,
     },
     rating: {

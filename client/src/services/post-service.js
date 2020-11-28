@@ -20,6 +20,17 @@ class PostService {
       });
   }
 
+  async submitImagePost(formData) {
+    return axios
+      .post(API_URL + "forumposts/imagepost", formData, {
+        headers: authHeader("yes"),
+      })
+      .then((response) => {
+        console.log(response);
+        return response.data;
+      });
+  }
+
   async getPostsFromCurrentUser() {
     return axios
       .get(API_URL + "forumposts/userposts", { headers: authHeader() })

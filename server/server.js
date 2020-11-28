@@ -11,14 +11,15 @@ var cors = require("cors");
 
 // Requiring our models for syncing
 var db = require("./models");
+global.__basedir = __dirname;
 
 // Sets up the Express app to handle data parsing
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(cors());
 
 // Static directory
-app.use(express.static("public"));
+app.use("/uploads", express.static("uploads"));
 
 // Routes
 // =============================================================

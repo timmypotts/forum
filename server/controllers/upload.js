@@ -2,23 +2,25 @@ const fs = require("fs");
 
 const db = require("../models");
 
-const uploadFiles = async (req, res) => {
+const imagePost = async (req, res, authData) => {
   try {
-    console.log(req.file);
+    console.log("REQ: ");
+    console.log(req);
 
-    if (req.file == undefined) {
-      next();
+    if (req.files === null) {
+      return res.status(400).json({ msg: "No file uploaded" });
     }
-
+    const postTitle = req.body.title;
+    const postBody = req.body.body;
+    console.log(req.body);
     db.Post.create({
-      type: req.file.mimetype,
-      name: req.file.originalname,
-      data: fs.readFileSync(__basedir + "assets/uploads/" + req.file.filename),
-    }).then((image) => {
-      fs.writeFileSync(__basedir + "/assets/tmp/" + image.name, image.data);
-
-      return res.send(`File has been uploaded.`);
+      postTitle: postTitle,
+      postBody: postBody,
+      UserId: authData.id,
+      image: req.file.path,
     });
+
+    return res.send(`File has been uploaded.`);
   } catch (error) {
     console.log(error);
     return res.send(`Error when trying upload images: ${error}`);
@@ -26,5 +28,5 @@ const uploadFiles = async (req, res) => {
 };
 
 module.exports = {
-  uploadFiles,
+  imagePost,
 };

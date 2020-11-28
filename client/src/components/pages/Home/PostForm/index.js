@@ -6,18 +6,38 @@ const PostForm = (props) => {
   const [title, setTitle] = useState(``);
   const [body, setBody] = useState(``);
   const [error, setError] = useState(null);
-  const [selectedFile, setSelectedFile] = useState([]);
+  const [file, setFile] = useState("");
+  const [filename, setFilename] = useState("");
+  const [imagePayload, setImagePayload] = useState({});
 
-  function handleSubmit(event) {
+  function onFileSelect(e) {
+    setFile(e.target.files[0]);
+    setFilename(e.target.files[0].name);
+    console.log(file);
+  }
+
+  async function handleSubmit(event) {
     if (title === ``) {
       setError("Please create a title for this post");
       return;
     }
-    console.log("submitting");
-    // event.preventDefault();
-    PostService.submitPost(title, body).catch((err) => {
-      console.log(err);
-    });
+    if (file === "") {
+      console.log("submitting");
+      // event.preventDefault();
+      PostService.submitPost(title, body).catch((err) => {
+        console.log(err);
+      });
+    } else {
+      event.preventDefault();
+      let formData = new FormData();
+      formData.append("image", file);
+      formData.append("title", title);
+      formData.append("body", body);
+
+      PostService.submitImagePost(formData).catch((err) => {
+        console.log(err);
+      });
+    }
   }
 
   return (
@@ -57,9 +77,9 @@ const PostForm = (props) => {
           type="file"
           name="file"
           id="file"
-          value={selectedFile}
+          // value={file}
           onChange={(e) => {
-            console.log(e);
+            onFileSelect(e);
           }}
         />
       </FormGroup>

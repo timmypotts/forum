@@ -1,6 +1,8 @@
 var bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verify-token");
+const upload = require("../middleware/upload");
+const uploadController = require("../controllers/upload");
 
 //Connect to Database
 var db = require("../models");
@@ -29,6 +31,26 @@ module.exports = function (app) {
       }
     });
   });
+
+  // Route for uploading an image post
+  app.post(
+    "/api/forumposts/imagepost",
+    verifyToken,
+    upload.single("image"),
+    async (req, res) => {
+      if (req.files === null) {
+        return res.status(400).json({ msg: "No file uploaded" });
+      }
+      jwt.verify(req.token, "secretkey", (error, authData) => {
+        if (error) {
+          console.log(error);
+          res.sendStatus(403);
+        } else {
+          uploadController.imagePost(req, res, authData);
+        }
+      });
+    }
+  );
 
   //GET SPECIFIC POST
   app.get("/api/forumpost/:id", async (req, res) => {
