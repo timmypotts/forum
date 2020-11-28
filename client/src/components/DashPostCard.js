@@ -26,6 +26,7 @@ const DashPostCard = (props) => {
 
   const [rating, setRating] = useState(props.rating);
   const [liked, setLiked] = useState(false);
+  const IMG_URL = "http://localhost:8080/";
 
   async function likePost() {
     setLiked(true);
@@ -72,6 +73,14 @@ const DashPostCard = (props) => {
             </CardHeader>
             <CardBody className="float-left">
               <p className="float-left">{props.body}</p>
+              {/* This check to see if the post contains an image, and will display the image if there is */}
+              {props.image ? (
+                <img
+                  className="img-fluid"
+                  alt={props.title}
+                  src={IMG_URL + props.image}
+                />
+              ) : null}
             </CardBody>
             <CardFooter>
               <Button className="float-right" type="">

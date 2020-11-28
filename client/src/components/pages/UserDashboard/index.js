@@ -59,6 +59,7 @@ export default function UserDashboard({ match, location }) {
             body={post.postBody}
             date={moment(post.createdAt).calendar()}
             rating={post.rating}
+            image={post.image}
           />
         ))}
       </div>

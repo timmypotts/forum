@@ -56,6 +56,7 @@ export default function Home() {
               date={moment(post.createdAt).calendar()}
               author={post.User.username}
               rating={post.rating}
+              image={post.image}
             />
           ))}
         </div>

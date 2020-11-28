@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, FormText, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import PostService from "../../../../services/post-service";
 
 const PostForm = (props) => {
@@ -8,7 +8,6 @@ const PostForm = (props) => {
   const [error, setError] = useState(null);
   const [file, setFile] = useState("");
   const [filename, setFilename] = useState("");
-  const [imagePayload, setImagePayload] = useState({});
 
   function onFileSelect(e) {
     setFile(e.target.files[0]);
@@ -23,12 +22,10 @@ const PostForm = (props) => {
     }
     if (file === "") {
       console.log("submitting");
-      // event.preventDefault();
       PostService.submitPost(title, body).catch((err) => {
         console.log(err);
       });
     } else {
-      event.preventDefault();
       let formData = new FormData();
       formData.append("image", file);
       formData.append("title", title);

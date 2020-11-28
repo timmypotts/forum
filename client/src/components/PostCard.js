@@ -16,6 +16,7 @@ import {
 } from "reactstrap";
 
 const PostCard = (props) => {
+  const IMG_URL = "http://localhost:8080/";
   const [rating, setRating] = useState(props.rating);
   const [liked, setLiked] = useState(false);
   const [error, setError] = useState("");
@@ -60,6 +61,14 @@ const PostCard = (props) => {
             </CardHeader>
             <CardBody className="float-left">
               <p className="text-left">{props.body}</p>
+              {/* This check to see if the post contains an image, and will display the image if there is */}
+              {props.image ? (
+                <img
+                  className="img-fluid"
+                  alt={props.title}
+                  src={IMG_URL + props.image}
+                />
+              ) : null}
             </CardBody>
             <CardFooter>
               <Button className="float-right" type="">
