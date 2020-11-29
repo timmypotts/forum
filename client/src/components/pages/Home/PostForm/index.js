@@ -5,18 +5,17 @@ import PostService from "../../../../services/post-service";
 const PostForm = (props) => {
   const [title, setTitle] = useState(``);
   const [body, setBody] = useState(``);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [file, setFile] = useState("");
-  const [filename, setFilename] = useState("");
 
   function onFileSelect(e) {
     setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
     console.log(file);
   }
 
   async function handleSubmit(event) {
     if (title === ``) {
+      event.preventDefault();
       setError("Please create a title for this post");
       return;
     }
@@ -41,7 +40,7 @@ const PostForm = (props) => {
     <Form onSubmit={handleSubmit}>
       <FormGroup>
         <Label className="text-left float-left" for="title">
-          Title:
+          Title: {error ? <p className="error-text">{error}</p> : null}
         </Label>
         <Input
           onChange={(e) => setTitle(e.target.value)}
@@ -68,13 +67,12 @@ const PostForm = (props) => {
       </FormGroup>
       <FormGroup>
         <Label for="file" className="text-left float-left">
-          File
+          Image: (Optional)
         </Label>
         <Input
           type="file"
           name="file"
           id="file"
-          // value={file}
           onChange={(e) => {
             onFileSelect(e);
           }}
@@ -85,7 +83,6 @@ const PostForm = (props) => {
           Submit
         </Button>
       </FormGroup>
-      {error ? null : <p>{error}</p>}
     </Form>
   );
 };

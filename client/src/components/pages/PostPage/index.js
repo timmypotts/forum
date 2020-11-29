@@ -61,6 +61,7 @@ export default function PostPage({ match, location }) {
               date={moment(post.createdAt).calendar()}
               author={post.User.username}
               rating={post.rating}
+              image={post.image}
             />
           ) : null}
         </Col>

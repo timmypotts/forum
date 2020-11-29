@@ -1,16 +1,12 @@
-var bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verify-token");
 const upload = require("../middleware/upload");
 const uploadController = require("../controllers/upload");
+const fs = require("fs");
 
 //Connect to Database
 var db = require("../models");
 module.exports = function (app) {
-  // Middleware
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
-
   // Requiring a json web token makes it so only a logged in user may create a post
   app.post("/api/forumposts", verifyToken, async (req, res) => {
     jwt.verify(req.token, "secretkey", (error, authData) => {
@@ -107,6 +103,23 @@ module.exports = function (app) {
         if (error) {
           res.sendStatus(403);
         } else {
+          db.Post.findOne({
+            where: { id: req.params.postID },
+          }).then((post) => {
+            if (post.image) {
+              fs.unlink("./" + post.image, (err) => {
+                if (err) {
+                  throw err;
+                }
+              });
+              db.Post.destroy({
+                where: {
+                  id: req.params.postID,
+                },
+              });
+              return res.json("Got em");
+            }
+          });
           db.Post.destroy({
             where: {
               id: req.params.postID,

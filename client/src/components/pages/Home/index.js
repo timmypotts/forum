@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 import PostCard from "../../PostCard";
 import PostForm from "./PostForm";
 import moment from "moment";
@@ -10,6 +10,8 @@ import PostService from "../../../services/post-service";
 export default function Home() {
   const { user, setUser } = useContext(UserContext);
   const [posts, setPosts] = useState([]);
+  const [showBool, setShowBool] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -29,18 +31,37 @@ export default function Home() {
     });
   }, []);
 
+  function checkUser(e) {
+    if (user) {
+      setShowBool(true);
+    } else {
+      setError("Please Sign In or Create an Account to make a post");
+    }
+  }
+
   return (
     <Container>
       <Row mb={3}>
         <Col>
-          {user ? (
-            <PostForm mb={5} />
+          {showBool ? (
+            <div>
+              <PostForm mb={5} />
+              <Button
+                color="link"
+                className="float-right"
+                onClick={(e) => setShowBool(false)}
+              >
+                Cancel
+              </Button>
+            </div>
           ) : (
-            <h4>
-              Sign in or create an account to make a post. Don't use a password
-              you normally use, I cant guarentee how secure this is. Try it out
-              though!
-            </h4>
+            <Button
+              color="info"
+              className="float-left"
+              onClick={(e) => checkUser(e)}
+            >
+              Create a Post
+            </Button>
           )}
         </Col>
       </Row>
