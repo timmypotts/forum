@@ -117,7 +117,7 @@ module.exports = function (app) {
                   id: req.params.postID,
                 },
               });
-              return res.json("Got em");
+              return;
             }
           });
           db.Post.destroy({
@@ -125,7 +125,7 @@ module.exports = function (app) {
               id: req.params.postID,
             },
           });
-          res.json({ message: "Post Deleted" });
+          return;
         }
       });
     }
