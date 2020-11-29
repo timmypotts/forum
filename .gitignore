@@ -1,7 +1,24 @@
+# dependencies
+client/.pnp
+client/.pnp.js
 client/node_modules/
 server/node_modules/
 package-lock.json
-server/node_modules/
-#This file contains passwords in plain text, so I am not including it in a public repo
+
+# production
+client/build
+
+# config + env
 server/.*
+
+# photo storage
 server/uploads/*
+
+# misc
+client/.DS_Store
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+npm-debug.log*
