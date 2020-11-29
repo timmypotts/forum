@@ -9,7 +9,7 @@ import UserDashboard from "./components/pages/UserDashboard";
 import PostPage from "./components/pages/PostPage";
 import { UserContext } from "./context/UserContext";
 
-import "./App.css";
+import "./styles/App.css";
 
 const Routes = () => {
   return (

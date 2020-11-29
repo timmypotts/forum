@@ -28,3 +28,32 @@ body {
 .list-group-item {
   cursor: pointer;
 }
+
+.likeButton {
+  height: 32px;
+  width: 32px;
+}
+
+.likeButton-comment {
+  height: 20px;
+  width: 20px;
+}
+
+.delete-button {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  background-color: #f9a300;
+  border: none;
+}
+delete-button:hover {
+  font-weight: bold;
+}
+
+.delete-button-comment {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background-color: #f9a300;
+  border: none;
+}
