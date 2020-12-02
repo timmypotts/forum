@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 
 const PostCard = (props) => {
-  const IMG_URL = "http://localhost:8080/";
+  const IMG_URL = "http://localhost:3080/";
   const [rating, setRating] = useState(props.rating);
   const [liked, setLiked] = useState(false);
   const [error, setError] = useState("");

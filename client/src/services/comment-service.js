@@ -1,13 +1,13 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/api/";
+// const API_URL = "http://localhost:3080/api/";
 
 class CommentService {
   async getComments(postID) {
     postID = postID.postID;
     return axios
-      .get(API_URL + "comment/fetch-all/postID=" + postID)
+      .get("/api/comment/fetch-all/postID=" + postID)
       .then((response) => {
         return response.data;
       });
@@ -16,7 +16,7 @@ class CommentService {
   async submitComment(postID, commentText) {
     return axios
       .post(
-        API_URL + "comment/postID=" + postID,
+        "/api/comment/postID=" + postID,
         { commentText },
         { headers: authHeader() }
       )
@@ -27,7 +27,7 @@ class CommentService {
 
   async deleteComment(commentID) {
     return axios
-      .delete(API_URL + "comment/delete/" + commentID, {
+      .delete("/api/comment/delete/" + commentID, {
         headers: authHeader(),
       })
       .then((response) => {
@@ -37,7 +37,7 @@ class CommentService {
 
   async getCommentsFromCurrentUser() {
     return axios
-      .get(API_URL + "comment/usercomments", { headers: authHeader() })
+      .get("/api/comment/usercomments", { headers: authHeader() })
       .then((response) => {
         return response;
       });

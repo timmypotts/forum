@@ -10,6 +10,7 @@ client/build
 
 # config + env
 server/.*
+docker-compose.yml
 
 # photo storage
 server/uploads/*

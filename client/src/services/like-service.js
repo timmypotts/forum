@@ -1,12 +1,12 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/api/";
+// const API_URL = "http://localhost:3080/api/";
 
 class LikeService {
   async likePost(postID) {
     return axios
-      .post(API_URL + "likepost/id=" + postID, {}, { headers: authHeader() })
+      .post("/api/likepost/id=" + postID, {}, { headers: authHeader() })
       .then((response) => {
         return response.data;
       });
@@ -14,7 +14,9 @@ class LikeService {
 
   async unlikePost(postID) {
     return axios
-      .delete(API_URL + "unlikepost/id=" + postID, { headers: authHeader() })
+      .delete("/api/unlikepost/id=" + postID, {
+        headers: authHeader(),
+      })
       .then((response) => {
         return response.data;
       });
@@ -22,11 +24,7 @@ class LikeService {
 
   async likeComment(commentID) {
     return axios
-      .post(
-        API_URL + "likecomment/id=" + commentID,
-        {},
-        { headers: authHeader() }
-      )
+      .post("/api/likecomment/id=" + commentID, {}, { headers: authHeader() })
       .then((response) => {
         return response.data;
       });
@@ -34,7 +32,7 @@ class LikeService {
 
   async unlikeComment(commentID) {
     return axios
-      .delete(API_URL + "unlikecomment/id=" + commentID, {
+      .delete("/api/unlikecomment/id=" + commentID, {
         headers: authHeader(),
       })
       .then((response) => {
