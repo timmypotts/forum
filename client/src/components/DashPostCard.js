@@ -26,7 +26,7 @@ const DashPostCard = (props) => {
 
   const [rating, setRating] = useState(props.rating);
   const [liked, setLiked] = useState(false);
-  const IMG_URL = "http://localhost:3080/";
+  const IMG_URL = "http://www.timpotts.xyz:3080/";
 
   async function likePost() {
     setLiked(true);
