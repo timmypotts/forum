@@ -7,7 +7,6 @@ const outline = `1px solid ${gray}`;
 export const PostWrapper = styled.section`
   text-align: center;
   :hover {
-    cursor: pointer;
     .card {
       border-color: ${teal};
     }
@@ -19,4 +18,3 @@ export const PostWrapper = styled.section`
     padding: 1.25rem 0.75rem;
   }
 `;
-

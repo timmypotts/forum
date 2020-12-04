@@ -71,6 +71,7 @@ module.exports = function (app) {
           model: db.Like,
         },
       ],
+      order: [["rating", "DESC"]],
     }).then((postDump) => {
       res.json(postDump);
     });

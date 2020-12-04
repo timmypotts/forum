@@ -4,7 +4,7 @@ FROM node:13.12.0-alpine
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
-ENV HOST=54.205.120.4/
+ENV DANGEROUSLY_DISABLE_HOST_CHECK=true
 
 COPY package.json ./
 COPY package-lock.json ./

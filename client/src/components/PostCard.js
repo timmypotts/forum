@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 
 const PostCard = (props) => {
-  const IMG_URL = "http://www.timpotts.xyz:3080/";
+  const IMG_URL = "http://54.205.120.4:3080/";
   const [rating, setRating] = useState(props.rating);
   const [liked, setLiked] = useState(false);
   const [error, setError] = useState("");
@@ -71,9 +71,11 @@ const PostCard = (props) => {
               ) : null}
             </CardBody>
             <CardFooter>
-              <Button className="float-right" type="">
-                Comments
-              </Button>
+              <Link to={`/postpage/${props.postID}/${props.title}/`}>
+                <Button className="float-right" type="">
+                  Comments
+                </Button>
+              </Link>
               {liked ? (
                 <button className="float-left mr-2">
                   <img

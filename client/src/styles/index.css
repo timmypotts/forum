@@ -43,7 +43,7 @@ body {
   cursor: pointer;
   height: 25px;
   width: 25px;
-  background-color: #f9a300;
+  background-color: none;
   border: none;
 }
 delete-button:hover {

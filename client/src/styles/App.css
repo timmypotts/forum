@@ -66,10 +66,6 @@ body {
   appearance: none;
 }
 
-.list-group-item {
-  cursor: pointer;
-}
-
 .error-input {
   border: 2px solid red;
   border-radius: 4px;
