@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Row, Col, Button, ButtonGroup } from "reactstrap";
+import { Container, Row, Button, ButtonGroup } from "reactstrap";
 import DashPostCard from "../../DashPostCard";
 import DashCommentCard from "../../DashCommentCard";
 import moment from "moment";
@@ -60,6 +60,7 @@ export default function UserDashboard({ match, location }) {
             date={moment(post.createdAt).calendar()}
             rating={post.rating}
             image={post.image}
+            comments={post.commentCount}
           />
         ))}
       </div>

@@ -14,7 +14,7 @@ export default function PostPage({ match, location }) {
   const [comments, setComments] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const {
-    params: { postID, postTitle },
+    params: { postID },
   } = match;
 
   useEffect(() => {
@@ -62,6 +62,7 @@ export default function PostPage({ match, location }) {
               author={post.User.username}
               rating={post.rating}
               image={post.image}
+              comments={post.commentCount}
             />
           ) : null}
         </Col>

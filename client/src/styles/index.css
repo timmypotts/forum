@@ -54,6 +54,10 @@ delete-button:hover {
   cursor: pointer;
   height: 20px;
   width: 20px;
-  background-color: #f9a300;
+  background-color: none;
   border: none;
+}
+
+.post-body {
+  white-space: pre-wrap;
 }

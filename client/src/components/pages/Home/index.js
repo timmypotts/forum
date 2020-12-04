@@ -78,6 +78,7 @@ export default function Home() {
               author={post.User.username}
               rating={post.rating}
               image={post.image}
+              comments={post.commentCount}
             />
           ))}
         </div>

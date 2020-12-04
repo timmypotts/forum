@@ -55,7 +55,7 @@ const CommentCard = (props) => {
           <h5 className="float-right mr-3 ml-1 mb-0">{rating}</h5>
         </CardHeader>
         <CardBody className="text-left mb-0">
-          <p className="mb-0">{props.commentText}</p>
+          <p className="mb-0 post-body">{props.commentText}</p>
         </CardBody>
       </Card>
     </div>

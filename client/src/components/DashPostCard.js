@@ -72,7 +72,7 @@ const DashPostCard = (props) => {
               </Row>
             </CardHeader>
             <CardBody className="float-left">
-              <p className="float-left">{props.body}</p>
+              <p className="float-left post-body">{props.body}</p>
               {/* This check to see if the post contains an image, and will display the image if there is */}
               {props.image ? (
                 <img
@@ -85,7 +85,7 @@ const DashPostCard = (props) => {
             <CardFooter>
               <Link to={`/postpage/${props.postID}/${props.title}/`}>
                 <Button className="float-right" type="">
-                  Comments
+                  Comments ({props.comments})
                 </Button>
               </Link>
               {liked ? (
