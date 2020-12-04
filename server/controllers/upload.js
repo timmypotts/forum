@@ -4,9 +4,6 @@ const db = require("../models");
 
 const imagePost = async (req, res, authData) => {
   try {
-    console.log("REQ: ");
-    console.log(req);
-
     if (req.files === null) {
       return res.status(400).json({ msg: "No file uploaded" });
     }
@@ -20,10 +17,10 @@ const imagePost = async (req, res, authData) => {
       image: req.file.path,
     });
 
-    return res.send(`File has been uploaded.`);
+    return res.send(`Image has been uploaded.`);
   } catch (error) {
     console.log(error);
-    return res.send(`Error when trying upload images: ${error}`);
+    return res.send(`Error when trying upload image: ${error}`);
   }
 };
 

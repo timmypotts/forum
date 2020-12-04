@@ -25,11 +25,23 @@ module.exports = function (app) {
           comment: req.body.commentText,
           username: authData.user,
         })
-          .then((commentData) => {
-            res.json(commentData);
+          .then(() => {
+            return db.Comment.count({
+              where: { PostId: req.params.postID },
+            });
+          })
+          .then((c) => {
+            console.log(c);
+            db.Post.update(
+              {
+                commentCount: c,
+              },
+              { where: { id: req.params.postID } }
+            );
+            res.json(c);
           })
           .catch((err) => {
-            res.json(err);
+            console.log(err);
           });
       }
     });
@@ -80,7 +92,25 @@ module.exports = function (app) {
         } else {
           db.Comment.destroy({
             where: { id: req.params.commentID },
-          });
+          })
+            .then(() => {
+              return db.Comment.count({
+                where: { PostId: req.params.postID },
+              });
+            })
+            .then((c) => {
+              console.log(c);
+              db.Post.update(
+                {
+                  commentCount: c,
+                },
+                { where: { id: req.params.postID } }
+              );
+              res.json(c);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }
       });
     }
