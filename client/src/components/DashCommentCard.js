@@ -49,18 +49,18 @@ const DashCommentCard = (props) => {
           </button>
           <h6 className="float-left ml-0 mb-0 pt-1">{props.author}:</h6>
           {liked ? (
-            <button className="float-right mr-2">
+            <button className="float-right mr-2 likeButton">
               <img
-                className="likeButton-comment"
+                className="likeButtonIcon-comment"
                 src={likedicon}
                 alt="click to unlike post"
                 onClick={unlikeComment}
               />
             </button>
           ) : (
-            <button className="float-right mr-2">
+            <button className="float-right mr-2 likeButton">
               <img
-                className="likeButton-comment"
+                className="likeButtonIcon-comment"
                 src={notLiked}
                 alt="click to like post"
                 onClick={likeComment}

@@ -1,16 +1,5 @@
-import React, { useContext, useState } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardBody,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-} from "reactstrap";
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import CommentService from "../../../services/comment-service";
 
 const CommentForm = (props) => {

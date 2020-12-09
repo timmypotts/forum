@@ -65,6 +65,9 @@ export default function Home() {
           )}
         </Col>
       </Row>
+      <Row>
+        <Col>{error ? <p className="error-text">{error}</p> : null}</Col>
+      </Row>
 
       {posts.length ? (
         <div>

@@ -77,18 +77,18 @@ const PostCard = (props) => {
                 </Button>
               </Link>
               {liked ? (
-                <button className="float-left mr-2">
+                <button className="float-left mr-2 likeButton">
                   <img
-                    className="likeButton"
+                    className="likeButtonIcon"
                     src={likedicon}
                     alt="click to unlike post"
                     onClick={unlikePost}
                   />
                 </button>
               ) : (
-                <button className="float-left mr-2">
+                <button className="float-left mr-2 likeButton">
                   <img
-                    className="likeButton"
+                    className="likeButtonIcon"
                     src={notLiked}
                     alt="click to like post"
                     onClick={likePost}

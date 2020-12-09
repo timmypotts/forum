@@ -6,7 +6,11 @@ import authHeader from "./auth-header";
 class LikeService {
   async likePost(postID) {
     return axios
-      .post("/api/likepost/id=" + postID, {}, { headers: authHeader() })
+      .post(
+        "http://54.205.120.4:3080/api/likepost/id=" + postID,
+        {},
+        { headers: authHeader() }
+      )
       .then((response) => {
         return response.data;
       });
@@ -14,7 +18,7 @@ class LikeService {
 
   async unlikePost(postID) {
     return axios
-      .delete("/api/unlikepost/id=" + postID, {
+      .delete("http://54.205.120.4:3080/api/unlikepost/id=" + postID, {
         headers: authHeader(),
       })
       .then((response) => {
@@ -24,7 +28,11 @@ class LikeService {
 
   async likeComment(commentID) {
     return axios
-      .post("/api/likecomment/id=" + commentID, {}, { headers: authHeader() })
+      .post(
+        "http://54.205.120.4:3080/api/likecomment/id=" + commentID,
+        {},
+        { headers: authHeader() }
+      )
       .then((response) => {
         return response.data;
       });
@@ -32,7 +40,7 @@ class LikeService {
 
   async unlikeComment(commentID) {
     return axios
-      .delete("/api/unlikecomment/id=" + commentID, {
+      .delete("http://54.205.120.4:3080/api/unlikecomment/id=" + commentID, {
         headers: authHeader(),
       })
       .then((response) => {

@@ -7,7 +7,7 @@ class PostService {
   submitPost(title, body) {
     return axios
       .post(
-        "/api/forumposts",
+        "http://54.205.120.4:3080/api/forumposts",
         {
           title,
           body,
@@ -22,7 +22,7 @@ class PostService {
 
   async submitImagePost(formData) {
     return axios
-      .post("/api/forumposts/imagepost", formData, {
+      .post("http://54.205.120.4:3080/api/forumposts/imagepost", formData, {
         headers: authHeader("yes"),
       })
       .then((response) => {
@@ -33,7 +33,9 @@ class PostService {
 
   async getPostsFromCurrentUser() {
     return axios
-      .get("/api/forumposts/userposts", { headers: authHeader() })
+      .get("http://54.205.120.4:3080/api/forumposts/userposts", {
+        headers: authHeader(),
+      })
       .then((response) => {
         return response;
       });
@@ -41,7 +43,7 @@ class PostService {
 
   deletePost(postID) {
     return axios
-      .delete("/api/forumposts/delete/id=" + postID, {
+      .delete("http://54.205.120.4:3080/api/forumposts/delete/id=" + postID, {
         headers: authHeader(),
       })
       .then((response) => {
@@ -51,17 +53,21 @@ class PostService {
 
   async getPost(postID) {
     var pk = postID.postID;
-    return axios.get("/api/forumpost/" + pk).then((response) => {
-      console.log(response);
-      return response;
-    });
+    return axios
+      .get("http://54.205.120.4:3080/api/forumpost/" + pk)
+      .then((response) => {
+        console.log(response);
+        return response;
+      });
   }
 
   async loadPosts() {
-    return axios.get("/api/forumposts").then((response) => {
-      console.log(response);
-      return response.data;
-    });
+    return axios
+      .get("http://54.205.120.4:3080/api/forumposts")
+      .then((response) => {
+        console.log(response);
+        return response.data;
+      });
   }
 }
 

@@ -29,12 +29,17 @@ body {
   cursor: pointer;
 }
 
-.likeButton {
+.likeButtonIcon {
   height: 32px;
   width: 32px;
 }
 
-.likeButton-comment {
+.likeButton {
+  border: 2px solid black;
+  border-radius: 0px;
+}
+
+.likeButtonIcon-comment {
   height: 20px;
   width: 20px;
 }

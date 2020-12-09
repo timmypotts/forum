@@ -7,7 +7,7 @@ class CommentService {
   async getComments(postID) {
     postID = postID.postID;
     return axios
-      .get("/api/comment/fetch-all/postID=" + postID)
+      .get("http://54.205.120.4:3080/api/comment/fetch-all/postID=" + postID)
       .then((response) => {
         return response.data;
       });
@@ -16,7 +16,7 @@ class CommentService {
   async submitComment(postID, commentText) {
     return axios
       .post(
-        "/api/comment/postID=" + postID,
+        "http://54.205.120.4:3080/api/comment/postID=" + postID,
         { commentText },
         { headers: authHeader() }
       )
@@ -27,7 +27,7 @@ class CommentService {
 
   async deleteComment(commentID) {
     return axios
-      .delete("/api/comment/delete/" + commentID, {
+      .delete("http://54.205.120.4:3080/api/comment/delete/" + commentID, {
         headers: authHeader(),
       })
       .then((response) => {
@@ -37,7 +37,9 @@ class CommentService {
 
   async getCommentsFromCurrentUser() {
     return axios
-      .get("/api/comment/usercomments", { headers: authHeader() })
+      .get("http://54.205.120.4:3080/api/comment/usercomments", {
+        headers: authHeader(),
+      })
       .then((response) => {
         return response;
       });

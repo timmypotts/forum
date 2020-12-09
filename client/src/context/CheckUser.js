@@ -9,10 +9,8 @@ export default function CheckUser() {
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-      console.log(user);
       setUser(user.username);
     } else {
-      console.log("no user");
     }
   });
 

@@ -20,7 +20,6 @@ export default function UserDashboard({ match, location }) {
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-      console.log(user);
       setUser(user.username);
     } else {
       console.log("no user");
